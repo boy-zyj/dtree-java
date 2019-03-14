@@ -45,7 +45,7 @@ public abstract class DTree extends Runner {
     }
 
     protected void addChild(Condition condition, Node node) {
-        DTree runner = instance(node);
+        DTree runner = newInstance(node);
         runner.parent = this;
         if (runner.policy == null) {
             runner.policy = policy;  // 如果子DTree没有policy，继承父类的policy
@@ -80,7 +80,7 @@ public abstract class DTree extends Runner {
         return depth;
     }
 
-    public abstract DTree instance(Node node);
+    public abstract DTree newInstance(Node node);
 
     public void run(Center data) throws NoMatchException {
         if (policy == null) {
@@ -99,7 +99,9 @@ public abstract class DTree extends Runner {
         if (depth == 0) {
             s += dtreeMark + "root:\n";
         }
-        for (Child child: children) {
+        ArrayList<Child> all = new ArrayList<>(children);
+        all.add(new Child(Else.else_, else_));
+        for (Child child: all) {
             Condition condition = child.condition;
             if (child.runner instanceof DTree) {
                 DTree tree = (DTree) child.runner;
