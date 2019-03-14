@@ -69,7 +69,7 @@ class MyDTree extends DTree {
 }
 
 
-class Rule extends Context {
+class RuleUtils extends Context {
     public static MyDTree rule;
 
     public static MyDTree getRule() {
@@ -127,7 +127,7 @@ public class AppTest
     public void testDTree()
     {
         Data data = new Data("india", "prepay");
-        MyDTree rule = Rule.getRule();
+        MyDTree rule = RuleUtils.getRule();
         System.out.println(rule);
         try {
             rule.run(data);
