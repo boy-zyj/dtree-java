@@ -1,5 +1,6 @@
 package com.clubfactory;
 
+import com.sun.xml.internal.rngom.parse.xml.DtdContext;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -68,10 +69,39 @@ class MyDTree extends DTree {
     }
 }
 
+
+class Rule extends Context {
+    public static MyDTree rule;
+
+    public static MyDTree getRule() {
+        if (rule == null) {
+            IsIndia isIndia = new IsIndia();
+            IsCod isCod = new IsCod();
+            IsValid isValid = new IsValid();
+
+            ToHn toHn = new ToHn();
+            ToXs toXs = new ToXs();
+
+            Node node = Node(
+                    T(isCod, toHn),
+                    T(isIndia, Node(
+                            T(isValid, toXs),
+                            T(else_, toHn)
+                    )),
+                    T(else_, toXs)
+            );
+
+            rule = new MyDTree(node);
+        }
+        return rule;
+    }
+
+}
+
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class AppTest
     extends TestCase
 {
     /**
@@ -98,24 +128,10 @@ public class AppTest
     public void testDTree()
     {
         Data data = new Data("india", "prepay");
-        IsIndia isIndia = new IsIndia();
-        IsCod isCod = new IsCod();
-        IsValid isValid = new IsValid();
-
-        ToHn toHn = new ToHn();
-        ToXs toXs = new ToXs();
-        Node node = new Node(
-                new T(isCod, toHn),
-                new T(isIndia, new Node(
-                        new T(isValid, toXs),
-                        new T(new Else(), toHn)
-                )),
-                new T(new Else(), toXs)
-        );
-        MyDTree tree = new MyDTree(node);
-        System.out.println(tree);
+        MyDTree rule = Rule.getRule();
+        System.out.println(rule);
         try {
-            tree.run(data);
+            rule.run(data);
         } catch (NoMatchException e) {
             System.out.println(e);
         }
