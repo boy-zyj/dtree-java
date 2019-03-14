@@ -1,6 +1,5 @@
 package com.clubfactory;
 
-import com.sun.xml.internal.rngom.parse.xml.DtdContext;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
