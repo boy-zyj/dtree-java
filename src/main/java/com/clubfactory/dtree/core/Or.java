@@ -3,7 +3,7 @@ package com.clubfactory.dtree.core;
 
 public class Or extends Condition {
 
-    protected Condition[] conditions;
+    private Condition[] conditions;
 
     public Or(Condition... conditions) {
         this.conditions = conditions;
@@ -17,6 +17,10 @@ public class Or extends Condition {
             }
         }
         return false;
+    }
+
+    public Condition[] getConditions() {
+        return conditions;
     }
 
     @Override
