@@ -4,26 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-class Child {
-
-    Condition condition;
-    Runner runner;
-
-    Child(Condition condition, Runner runner) {
-        this.condition = condition;
-        this.runner = runner;
-    }
-
-}
-
-
 public abstract class DTree extends Runner {
 
-    public Node node;
-    public Policy policy;
-    public ArrayList<Child> children;
-    public DTree parent;
-    public Runner else_;
+    private Node node;
+    private Policy policy;
+    private ArrayList<Child> children;
+    private DTree parent;
+    private Runner else_;
 
     public DTree(Node node) {
         this.node = node;
@@ -42,6 +29,26 @@ public abstract class DTree extends Runner {
                 addChild(t.condition, t.runner);
             }
         }
+    }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public Policy getPolicy() {
+        return policy;
+    }
+
+    public ArrayList<Child> getChildren() {
+        return children;
+    }
+
+    public DTree getParent() {
+        return parent;
+    }
+
+    public Runner getElse() {
+        return else_;
     }
 
     protected void addChild(Condition condition, Node node) {
@@ -102,15 +109,15 @@ public abstract class DTree extends Runner {
         ArrayList<Child> all = new ArrayList<>(children);
         all.add(new Child(Else.else_, else_));
         for (Child child: all) {
-            Condition condition = child.condition;
-            if (child.runner instanceof DTree) {
-                DTree tree = (DTree) child.runner;
+            Condition condition = child.getCondition();
+            if (child.getRunner() instanceof DTree) {
+                DTree tree = (DTree) child.getRunner();
                 s += String.join("", Collections.nCopies(depth + 1, indent))
                         + dtreeMark + condition.getDescription()
                         + ":\n";
                 s += tree.toString();
             } else {
-                Runner runner = child.runner;
+                Runner runner = child.getRunner();
                 s += String.join("", Collections.nCopies(depth + 1, indent))
                         + actionMark
                         + condition.getDescription()

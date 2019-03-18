@@ -2,7 +2,7 @@ package com.clubfactory.dtree.core;
 
 public class Chain extends Runner {
 
-    protected Runner[] runners;
+    private Runner[] runners;
 
     public Chain(Runner... runners) {
         this.runners = runners;
@@ -13,6 +13,10 @@ public class Chain extends Runner {
         for (Runner runner:runners) {
             runner.run(data);
         }
+    }
+
+    public Runner[] getRunners() {
+        return runners;
     }
 
     @Override

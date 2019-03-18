@@ -5,16 +5,17 @@ class OncePolicy extends Policy {
 
     @Override
     public void runTree(DTree tree, Center data) throws NoMatchException {
-        for (Child child: tree.children) {
-            Condition condition = child.condition;
-            Runner runner = child.runner;
+        for (Child child: tree.getChildren()) {
+            Condition condition = child.getCondition();
+            Runner runner = child.getRunner();
             if (condition.validate(data)) {
                 runner.run(data);
                 return;
             }
         }
-        if (tree.else_ != null) {
-            tree.else_.run(data);
+        Runner else_ = tree.getElse();
+        if (else_ != null) {
+            else_.run(data);
             return;
         } else {
             throw new NoMatchException();
@@ -28,9 +29,9 @@ class RepeatPolicy extends Policy {
 
     @Override
     public void runTree(DTree tree, Center data) throws NoMatchException {
-        for (Child child: tree.children) {
-            Condition condition = child.condition;
-            Runner runner = child.runner;
+        for (Child child: tree.getChildren()) {
+            Condition condition = child.getCondition();
+            Runner runner = child.getRunner();
             try {
                 if (condition.validate(data)) {
                     runner.run(data);
@@ -40,8 +41,9 @@ class RepeatPolicy extends Policy {
                 continue;
             }
         }
-        if (tree.else_ != null) {
-            tree.else_.run(data);
+        Runner else_ = tree.getElse();
+        if (else_ != null) {
+            else_.run(data);
             return;
         } else {
             throw new NoMatchException();
