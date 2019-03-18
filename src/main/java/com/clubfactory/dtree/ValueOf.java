@@ -19,8 +19,7 @@ public class ValueOf<INPUT, OUTPUT> {
     }
 
     public OUTPUT getOutput(INPUT input) {
-        OUTPUT output = getter.get(input);
-        return output;
+        return getter.get(input);
     }
 
     private class Ge<OTHER extends Comparable<OUTPUT>> extends Condition {
