@@ -1,5 +1,6 @@
 package com.clubfactory;
 
+import com.clubfactory.dtree.ValueOf;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -10,10 +11,12 @@ class Data implements Center {
     String country;
     String payType;
     boolean valid = true;
+    int qty;
 
     Data(String country, String payType) {
         this.country = country;
         this.payType = payType;
+        qty = 10;
     }
 }
 
@@ -70,6 +73,10 @@ class MyDTree extends DTree {
 
 
 class RuleUtils extends Context {
+
+    public static ValueOf<Data, String> country = new ValueOf<>("country", x -> x.country);
+    public static ValueOf<Data, Integer> qty = new ValueOf<>("qty", x -> x.qty);
+
     public static MyDTree rule;
 
     public static MyDTree getRule() {
@@ -82,12 +89,13 @@ class RuleUtils extends Context {
             ToXs toXs = new ToXs();
 
             Node node = Node(
+                    T(qty.eq(10), toHn),
                     T(isCod, toHn),
-                    T(isIndia, Node(
+                    T(country.eq("india"), Node(
                             T(isValid, toXs),
                             T(else_, toHn)
                     )),
-                    T(else_, toXs)
+                    T(else_, toHn)
             );
 
             rule = new MyDTree(node);
