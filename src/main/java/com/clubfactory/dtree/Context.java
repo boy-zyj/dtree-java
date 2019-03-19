@@ -279,7 +279,7 @@ public class Context<E> {
             this.node = node;
             T[] ts = node.ts;
             if (node.policy == null) {
-                policy = new OncePolicy();
+                policy = new DefaultPolicy();
             } else {
                 policy = node.policy;
             }
@@ -400,7 +400,7 @@ public class Context<E> {
 
     }
 
-    public class OncePolicy extends AbstractPolicy {
+    public class DefaultPolicy extends AbstractPolicy {
 
         @Override
         public void runTree(Dtree tree, E data) throws NoMatchException {
