@@ -278,9 +278,7 @@ public class Context<E> {
         public Dtree(Node node) {
             this.node = node;
             T[] ts = node.ts;
-            if (node.policy == null) {
-                policy = new DefaultPolicy();
-            } else {
+            if (node.policy != null) {
                 policy = node.policy;
             }
             children = new ArrayList<>(ts.length);
@@ -325,6 +323,9 @@ public class Context<E> {
         }
 
         public AbstractPolicy getPolicy() {
+            if (policy == null) {
+                policy = DEFAULT_POLICY;
+            }
             return policy;
         }
 
@@ -342,6 +343,7 @@ public class Context<E> {
 
         @Override
         public void run(E data) throws NoMatchException {
+            AbstractPolicy policy = getPolicy();
             policy.runTree(this, data);
         }
 
@@ -394,13 +396,14 @@ public class Context<E> {
         }
     }
 
+
     public abstract class AbstractPolicy {
 
         public abstract void runTree(Dtree tree, E data) throws NoMatchException;
 
     }
 
-    public class DefaultPolicy extends AbstractPolicy {
+    public class OncePolicy extends AbstractPolicy {
 
         @Override
         public void runTree(Dtree tree, E data) throws NoMatchException {
@@ -447,6 +450,8 @@ public class Context<E> {
             }
         }
     }
+
+    public AbstractPolicy DEFAULT_POLICY = new OncePolicy();
 
     public Else ELSE = new Else();
 
