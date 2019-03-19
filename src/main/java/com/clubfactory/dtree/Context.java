@@ -456,7 +456,7 @@ public class Context<E> {
         }
     }
 
-    public AbstractPolicy DEFAULT_POLICY = new OncePolicy();
+    final public AbstractPolicy DEFAULT_POLICY = new OncePolicy();
 
     public Else ELSE = new Else();
 
