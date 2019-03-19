@@ -338,7 +338,7 @@ public class Context<E> {
             return parent;
         }
 
-        public AbstractRunner getElse() {
+        public AbstractRunner getElseRunner() {
             return eLse;
         }
 
@@ -414,7 +414,7 @@ public class Context<E> {
                     return;
                 }
             }
-            AbstractRunner eLse = tree.getElse();
+            AbstractRunner eLse = tree.getElseRunner();
             if (eLse != null) {
                 eLse.run(data);
                 return;
@@ -440,7 +440,7 @@ public class Context<E> {
                     continue;
                 }
             }
-            AbstractRunner eLse = tree.getElse();
+            AbstractRunner eLse = tree.getElseRunner();
             if (eLse != null) {
                 eLse.run(data);
                 return;
