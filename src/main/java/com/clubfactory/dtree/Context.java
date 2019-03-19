@@ -49,7 +49,7 @@ public class Context<E> {
     public abstract class AbstractAction extends AbstractRunner {
 
         @Override
-        public int getType() {
+        final public int getType() {
             return ACTION;
         }
 
@@ -65,7 +65,7 @@ public class Context<E> {
         }
 
         @Override
-        public int getType() {
+        final public int getType() {
             return CHAIN;
         }
 
@@ -299,7 +299,7 @@ public class Context<E> {
         }
 
         @Override
-        public int getType() {
+        final public int getType() {
             return DTREE;
         }
 
