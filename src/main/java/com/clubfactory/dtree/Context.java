@@ -246,6 +246,10 @@ public class Context<E> {
             return policy;
         }
 
+        public void setPolicy(AbstractPolicy policy) {
+            this.policy = policy;
+        }
+
     }
 
     public class Child {
