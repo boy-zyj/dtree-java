@@ -37,8 +37,8 @@ public class Context<E> {
         /**
          * 实现相应条件的触发动作
          *
-         * @param data
-         * @throws NoMatchException
+         * @param data 执行动作的对象
+         * @throws NoMatchException 说明没有相对应的触发动作
          */
         public abstract void run(E data) throws NoMatchException;
 
@@ -95,8 +95,8 @@ public class Context<E> {
         /**
          * 对data进行判断，判断其是否满足某特定条件
          *
-         * @param data
-         * @return
+         * @param data 判断的对象
+         * @return boolean
          */
         public abstract boolean validate(E data);
 
@@ -108,6 +108,7 @@ public class Context<E> {
 
         private AbstractCondition[] conditions;
 
+        @SafeVarargs
         public And(AbstractCondition... conditions) {
             this.conditions = conditions;
         }
@@ -228,10 +229,12 @@ public class Context<E> {
         private T[] ts;
         private AbstractPolicy policy;
 
+        @SafeVarargs
         public Node(T... ts) {
             this.ts = ts;
         }
 
+        @SafeVarargs
         public Node(AbstractPolicy policy, T... ts) {
             this.ts = ts;
             this.policy = policy;
