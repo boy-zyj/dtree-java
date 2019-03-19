@@ -65,7 +65,7 @@ class MyContext<E extends Obj> extends Context<E> {
 
     Dtree getRule() {
         Node node = node(
-                x(isIndia, toHn),
+                x(and(isIndia, isValid), toHn),
                 x(isCod, toXs),
                 x(ELSE, node(
                         x(isCod, toHn),
@@ -113,7 +113,7 @@ public class ContextTest
         try {
             rule.run(obj);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 }
