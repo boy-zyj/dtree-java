@@ -211,13 +211,13 @@ public class Context<E> {
         AbstractRunner runner;
         int rightType;
 
-        public T(AbstractCondition condition, Node node) {
+        T(AbstractCondition condition, Node node) {
             this.condition = condition;
             this.node = node;
             rightType = NODE;
         }
 
-        public T(AbstractCondition condition, AbstractRunner runner) {
+        T(AbstractCondition condition, AbstractRunner runner) {
             this.condition = condition;
             this.runner = runner;
             rightType = RUNNER;
@@ -230,12 +230,12 @@ public class Context<E> {
         private AbstractPolicy policy;
 
         @SafeVarargs
-        public Node(T... ts) {
+        Node(T... ts) {
             this.ts = ts;
         }
 
         @SafeVarargs
-        public Node(AbstractPolicy policy, T... ts) {
+        Node(AbstractPolicy policy, T... ts) {
             this.ts = ts;
             this.policy = policy;
         }
