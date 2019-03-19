@@ -22,11 +22,7 @@ public class Context<E> {
 
     public abstract class AbstractRunner extends Descriptor {
 
-        private int type = RUNNER;
-
-        public int getType() {
-            return type;
-        }
+        public abstract int getType();
 
         public abstract void run(E data) throws NoMatchException;
 
@@ -38,17 +34,24 @@ public class Context<E> {
 
     public abstract class AbstractAction extends AbstractRunner {
 
-        private int type = ACTION;
+        @Override
+        public int getType() {
+            return ACTION;
+        }
 
     }
 
     public class Chain extends AbstractRunner {
 
-        private int type = CHAIN;
         private AbstractRunner[] runners;
 
         public Chain(AbstractRunner... runners) {
             this.runners = runners;
+        }
+
+        @Override
+        public int getType() {
+            return CHAIN;
         }
 
         @Override
@@ -249,7 +252,6 @@ public class Context<E> {
 
     public class Dtree extends AbstractRunner {
 
-        private int type = DTREE;
         private Node node;
         private AbstractPolicy policy;
         private ArrayList<Child> children;
@@ -273,6 +275,11 @@ public class Context<E> {
                     addChild(t.condition, t.runner);
                 }
             }
+        }
+
+        @Override
+        public int getType() {
+            return DTREE;
         }
 
         private void addChild(AbstractCondition condition, Node node) {
@@ -346,11 +353,13 @@ public class Context<E> {
                 s += dtreeMark + "root:\n";
             }
             ArrayList<Child> all = new ArrayList<>(children);
-            all.add(new Child(new Else(), eLse));
+            if (eLse != null) {
+                all.add(new Child(new Else(), eLse));
+            }
             for (Child child: all) {
                 AbstractCondition condition = child.getCondition();
                 AbstractRunner runner = child.getRunner();
-                if (runner.type == DTREE) {
+                if (runner.getType() == DTREE) {
                     Dtree tree = (Dtree) runner;
                     s += String.join("", Collections.nCopies(depth + 1, indent))
                             + dtreeMark + condition.getDescription()
