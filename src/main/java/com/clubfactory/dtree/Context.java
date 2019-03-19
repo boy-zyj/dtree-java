@@ -476,4 +476,159 @@ public class Context<E> {
         return new T(condition, runner);
     }
 
+    public class ValueOf<OUTPUT> {
+
+        private String desc;
+        private Getter<E, OUTPUT> getter;
+
+        public ValueOf(String desc, Getter<E, OUTPUT> getter) {
+            this.desc = desc;
+            this.getter = getter;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public OUTPUT getOutput(E input) {
+            return getter.get(input);
+        }
+
+        private class Ge<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+
+            ValueOf<OUTPUT> me;
+            OTHER other;
+
+            public Ge(ValueOf<OUTPUT> me, OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                OUTPUT meOutput = me.getOutput(input);
+                return other.compareTo(meOutput) < 0;
+            }
+
+            @Override
+            public String getDescription() {
+                return desc + ">=" + other;
+            }
+
+        }
+
+        private class Gt<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+
+            ValueOf<OUTPUT> me;
+            OTHER other;
+
+            public Gt(ValueOf<OUTPUT> me, OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                OUTPUT meOutput = me.getOutput(input);
+                return other.compareTo(meOutput) <= 0;
+            }
+
+            @Override
+            public String getDescription() {
+                return desc + ">" + other;
+            }
+
+        }
+
+        private class Le<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+
+            ValueOf<OUTPUT> me;
+            OTHER other;
+
+            public Le(ValueOf<OUTPUT> me, OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                OUTPUT meOutput = me.getOutput(input);
+                return other.compareTo(meOutput) >= 0;
+            }
+
+            @Override
+            public String getDescription() {
+                return desc + "<=" + other;
+            }
+
+        }
+
+        private class Lt<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+
+            ValueOf<OUTPUT> me;
+            OTHER other;
+
+            public Lt(ValueOf<OUTPUT> me, OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                OUTPUT meOutput = me.getOutput(input);
+                return other.compareTo(meOutput) > 0;
+            }
+
+            @Override
+            public String getDescription() {
+                return desc + "<" + other;
+            }
+
+        }
+
+        private class Eq<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+
+            ValueOf<OUTPUT> me;
+            OTHER other;
+
+            public Eq(ValueOf<OUTPUT> me, OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                OUTPUT meOutput = me.getOutput(input);
+                return other.compareTo(meOutput) == 0;
+            }
+
+            @Override
+            public String getDescription() {
+                return desc + "=" + other;
+            }
+
+        }
+
+        public <OTHER extends Comparable<OUTPUT>> AbstractCondition eq(OTHER other) {
+            return new Eq<>(this, other);
+        }
+
+        public <OTHER extends Comparable<OUTPUT>> AbstractCondition lt(OTHER other) {
+            return new Lt<>(this, other);
+        }
+
+        public <OTHER extends Comparable<OUTPUT>> AbstractCondition le(OTHER other) {
+            return new Le<>(this, other);
+        }
+
+        public <OTHER extends Comparable<OUTPUT>> AbstractCondition gt(OTHER other) {
+            return new Gt<>(this, other);
+        }
+
+        public <OTHER extends Comparable<OUTPUT>> AbstractCondition ge(OTHER other) {
+            return new Ge<>(this, other);
+        }
+
+    }
+
 }

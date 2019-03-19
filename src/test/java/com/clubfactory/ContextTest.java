@@ -63,8 +63,12 @@ class MyContext<E extends Obj> extends Context<E> {
     ToHn toHn = new ToHn();
     ToXs toXs = new ToXs();
 
+    ValueOf<String> country = new ValueOf<String>("country", x -> x.country);
+    ValueOf<Boolean> valid = new ValueOf<Boolean>("valid", x -> x.valid);
+
     Dtree getRule() {
         Node node = node(
+                x(country.eq("india"), toXs),
                 x(and(isIndia, isValid), toHn),
                 x(isCod, toXs),
                 x(ELSE, node(
