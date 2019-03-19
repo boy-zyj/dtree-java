@@ -1,8 +1,6 @@
 package com.clubfactory;
 
 import com.clubfactory.dtree.Context;
-import com.clubfactory.dtree.core.Center;
-import com.sun.corba.se.impl.ior.OldJIDLObjectKeyTemplate;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -111,6 +109,11 @@ public class ContextTest
     {
         Obj obj = new Obj("india", "prepay");
         MyContext<Obj> myContext = new MyContext<>();
-        myContext.getRule();
+        MyContext<Obj>.Dtree rule = myContext.getRule();
+        try {
+            rule.run(obj);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

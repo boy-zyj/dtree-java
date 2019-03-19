@@ -6,6 +6,11 @@ import java.util.Collections;
 class NoMatchException extends Exception {}
 
 
+/**
+ * @author yao
+ * @date 2019/03/19
+ * @param <E>
+ */
 public class Context<E> {
 
     final private static int NODE = 0;
@@ -22,8 +27,19 @@ public class Context<E> {
 
     public abstract class AbstractRunner extends Descriptor {
 
+        /**
+         * 返回Runner的类型
+         *
+         * @return int
+         */
         public abstract int getType();
 
+        /**
+         * 实现相应条件的触发动作
+         *
+         * @param data
+         * @throws NoMatchException
+         */
         public abstract void run(E data) throws NoMatchException;
 
         public Chain then(AbstractRunner runner) {
