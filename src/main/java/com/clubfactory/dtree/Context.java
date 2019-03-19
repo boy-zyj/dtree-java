@@ -3,8 +3,6 @@ package com.clubfactory.dtree;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class NoMatchException extends Exception {}
-
 
 /**
  * @author yao
