@@ -103,7 +103,7 @@ public class ContextTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( ContextTest.class );
     }
 
     /**
