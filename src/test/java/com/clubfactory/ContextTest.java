@@ -64,12 +64,12 @@ class MyContext<E extends Obj> extends Context<E> {
     ToXs toXs = new ToXs();
 
     Dtree getRule() {
-        Node node = new Node(
-                new T(isIndia, toHn),
-                new T(isCod, toXs),
-                new T(new Else(), new Node(
-                        new T(isCod, toHn),
-                        new T(new Else(), toXs)
+        Node node = node(
+                x(isIndia, toHn),
+                x(isCod, toXs),
+                x(ELSE, node(
+                        x(isCod, toHn),
+                        x(new Else(), toXs)
                 ))
         );
 

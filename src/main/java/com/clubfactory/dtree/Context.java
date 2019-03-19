@@ -450,4 +450,30 @@ public class Context<E> {
         }
     }
 
+    public Else ELSE = new Else();
+
+    public And and(AbstractCondition... conditions) {
+        return new And(conditions);
+    }
+
+    public Or or(AbstractCondition... conditions) {
+        return new Or(conditions);
+    }
+
+    public Not not(AbstractCondition condition) {
+        return new Not(condition);
+    }
+
+    public Node node(T... ts) {
+        return new Node(ts);
+    }
+
+    public T x(AbstractCondition condition, Node node) {
+        return new T(condition, node);
+    }
+
+    public T x(AbstractCondition condition, AbstractRunner runner) {
+        return new T(condition, runner);
+    }
+
 }
