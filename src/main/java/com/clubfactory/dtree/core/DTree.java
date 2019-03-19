@@ -55,7 +55,7 @@ public abstract class DTree extends Runner {
         DTree runner = newInstance(node);
         runner.parent = this;
         if (runner.policy == null) {
-            runner.policy = policy;  // 如果子DTree没有policy，继承父类的policy
+            runner.policy = policy;
         }
         if (condition instanceof Else) {
             this.else_ = runner;
@@ -89,6 +89,7 @@ public abstract class DTree extends Runner {
 
     public abstract DTree newInstance(Node node);
 
+    @Override
     public void run(Center data) throws NoMatchException {
         if (policy == null) {
             policy = Consts.DEFAULT_POLICY;

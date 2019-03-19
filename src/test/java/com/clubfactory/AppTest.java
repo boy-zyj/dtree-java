@@ -93,6 +93,10 @@ class RuleUtils extends Context {
                     T(isCod, toHn),
                     T(country.eq("india"), Node(
                             T(isValid, toXs),
+                            T(isCod, Node(
+                                    T(isCod, toHn),
+                                    T(else_, toHn)
+                            )),
                             T(else_, toHn)
                     )),
                     T(else_, toHn)
