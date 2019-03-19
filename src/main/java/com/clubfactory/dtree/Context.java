@@ -59,6 +59,7 @@ public class Context<E> {
 
         private AbstractRunner[] runners;
 
+        @SafeVarargs
         public Chain(AbstractRunner... runners) {
             this.runners = runners;
         }
@@ -139,6 +140,7 @@ public class Context<E> {
 
         private AbstractCondition[] conditions;
 
+        @SafeVarargs
         public Or(AbstractCondition... conditions) {
             this.conditions = conditions;
         }
@@ -422,7 +424,6 @@ public class Context<E> {
             AbstractRunner eLse = tree.getElseRunner();
             if (eLse != null) {
                 eLse.run(data);
-                return;
             } else {
                 throw new NoMatchException();
             }
@@ -459,10 +460,12 @@ public class Context<E> {
 
     public Else ELSE = new Else();
 
+    @SuppressWarnings("unchecked")
     public And and(AbstractCondition... conditions) {
         return new And(conditions);
     }
 
+    @SuppressWarnings("unchecked")
     public Or or(AbstractCondition... conditions) {
         return new Or(conditions);
     }
@@ -471,6 +474,7 @@ public class Context<E> {
         return new Not(condition);
     }
 
+    @SuppressWarnings("unchecked")
     public Node node(T... ts) {
         return new Node(ts);
     }
