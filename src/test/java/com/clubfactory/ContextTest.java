@@ -26,7 +26,7 @@ class MyContext extends Context<Obj> {
 
     private static MyContext instance;
 
-    public static MyContext newInstance() {
+    static MyContext newInstance() {
         if (instance == null) {
             instance = new MyContext();
         }
