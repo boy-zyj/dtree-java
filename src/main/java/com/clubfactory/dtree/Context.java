@@ -461,7 +461,9 @@ public class Context<E> {
         }
     }
 
-    final public AbstractPolicy DEFAULT_POLICY = new OncePolicy();
+    final public AbstractPolicy ONCE_POLICY = new OncePolicy();
+    final public AbstractPolicy DEFAULT_POLICY = ONCE_POLICY;
+    final public AbstractPolicy REPEAT_POLICY = new RepeatPolicy();
 
     public Else ELSE = new Else();
 
