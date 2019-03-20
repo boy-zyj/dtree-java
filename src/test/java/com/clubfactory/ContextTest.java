@@ -89,7 +89,7 @@ class MyContext extends Context<Obj> {
                 x(isCod, toXs),
                 x(ELSE, node(
                         x(isCod, toHn),
-                        x(new Else(), toXs)
+                        x(ELSE, toXs)
                 ))
         );
         Dtree rule = new Dtree(node);
