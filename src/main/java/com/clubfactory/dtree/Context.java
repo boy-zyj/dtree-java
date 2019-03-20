@@ -421,6 +421,13 @@ public class Context<E> {
 
     public abstract class AbstractPolicy {
 
+        /**
+         * 运行引擎的实现方法
+         *
+         * @param tree
+         * @param data
+         * @throws NoMatchException
+         */
         public abstract void runTree(Dtree tree, E data) throws NoMatchException;
 
     }
