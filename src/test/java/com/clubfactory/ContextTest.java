@@ -5,6 +5,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 class Obj {
     String country;
     String payType;
@@ -19,39 +21,39 @@ class Obj {
 }
 
 
-class MyContext<E extends Obj> extends Context<E> {
+class MyContext extends Context<Obj> {
 
     class IsIndia extends AbstractCondition {
         @Override
-        public boolean validate(E data) {
+        public boolean validate(Obj data) {
             return data.country.equals("india");
         }
     }
 
     class IsCod extends AbstractCondition {
         @Override
-        public boolean validate(E data) {
+        public boolean validate(Obj data) {
             return data.payType.equals("cod");
         }
     }
 
     class IsValid extends AbstractCondition {
         @Override
-        public boolean validate(E data) {
+        public boolean validate(Obj data) {
             return data.valid;
         }
     }
 
     class ToHn extends AbstractAction {
         @Override
-        public void run(E data) {
+        public void run(Obj data) {
             System.out.println("to hn");
         }
     }
 
     class ToXs extends AbstractAction {
         @Override
-        public void run(E center) {
+        public void run(Obj center) {
             System.out.println("to xs");
         }
     }
@@ -114,9 +116,10 @@ public class ContextTest
      */
     public void testDTree()
     {
+        String s = "test";
         Obj obj = new Obj("india", "prepay");
-        MyContext<Obj> myContext = new MyContext<>();
-        MyContext<Obj>.Dtree rule = myContext.getRule();
+        MyContext myContext = new MyContext();
+        MyContext.Dtree rule = myContext.getRule();
         try {
             rule.run(obj);
         } catch (Exception e) {
