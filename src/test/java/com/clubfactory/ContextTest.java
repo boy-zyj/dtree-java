@@ -57,7 +57,7 @@ class MyContext<E extends Obj> extends Context<E> {
     }
 
     IsIndia isIndia = new IsIndia();
-    IsCod isCod = new IsCod();
+//    IsCod isCod = new IsCod();
     IsValid isValid = new IsValid();
 
     ToHn toHn = new ToHn();
@@ -65,8 +65,12 @@ class MyContext<E extends Obj> extends Context<E> {
 
     ValueOf<String> country = new ValueOf<String>("country", x -> x.country);
     ValueOf<Boolean> valid = new ValueOf<Boolean>("valid", x -> x.valid);
+    ValueOf<String> payType = new ValueOf<String>("payType", x -> x.payType);
+
+    AbstractCondition isCod = payType.eq("cod");
 
     Dtree getRule() {
+        isCod.setDescription("isCod");
         Node node = node(
                 x(country.eq("india"), toXs),
                 x(and(isIndia, isValid), toHn),

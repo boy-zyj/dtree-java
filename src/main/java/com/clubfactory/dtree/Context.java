@@ -18,9 +18,20 @@ public class Context<E> {
     final private static int DTREE = 3;
 
     public class Descriptor {
+
+        protected String description;
+
         public String getDescription() {
-            return getClass().getSimpleName();
+            if (description == null) {
+                return getClass().getSimpleName();
+            }
+            return description;
         }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
     }
 
     public abstract class AbstractRunner extends Descriptor {
@@ -529,7 +540,10 @@ public class Context<E> {
 
             @Override
             public String getDescription() {
-                return desc + ">=" + other;
+                if (description == null) {
+                    return desc + ">=" + other;
+                }
+                return description;
             }
 
         }
@@ -552,7 +566,10 @@ public class Context<E> {
 
             @Override
             public String getDescription() {
-                return desc + ">" + other;
+                if (description == null) {
+                    return desc + ">" + other;
+                }
+                return description;
             }
 
         }
@@ -575,7 +592,10 @@ public class Context<E> {
 
             @Override
             public String getDescription() {
-                return desc + "<=" + other;
+                if (description == null) {
+                    return desc + "<=" + other;
+                }
+                return description;
             }
 
         }
@@ -598,7 +618,10 @@ public class Context<E> {
 
             @Override
             public String getDescription() {
-                return desc + "<" + other;
+                if (description == null) {
+                    return desc + "<" + other;
+                }
+                return description;
             }
 
         }
@@ -621,7 +644,10 @@ public class Context<E> {
 
             @Override
             public String getDescription() {
-                return desc + "=" + other;
+                if (description == null) {
+                    return desc + "=" + other;
+                }
+                return description;
             }
 
         }
