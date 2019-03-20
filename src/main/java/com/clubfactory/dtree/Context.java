@@ -482,7 +482,7 @@ public class Context<E> {
     final public AbstractPolicy DEFAULT_POLICY = ONCE_POLICY;
     final public AbstractPolicy REPEAT_POLICY = new RepeatPolicy();
 
-    public Else ELSE = new Else();
+    final public Else ELSE = new Else();
 
     @SuppressWarnings("unchecked")
     public And and(AbstractCondition... conditions) {
