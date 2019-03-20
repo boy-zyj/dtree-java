@@ -23,6 +23,17 @@ class Obj {
 
 class MyContext extends Context<Obj> {
 
+    private MyContext() {}
+
+    private static MyContext instance;
+
+    public static MyContext newInstance() {
+        if (instance == null) {
+            return new MyContext();
+        }
+        return instance;
+    }
+
     class IsIndia extends AbstractCondition {
         @Override
         public boolean validate(Obj data) {
@@ -118,7 +129,7 @@ public class ContextTest
     {
         String s = "test";
         Obj obj = new Obj("india", "prepay");
-        MyContext myContext = new MyContext();
+        MyContext myContext = MyContext.newInstance();
         MyContext.Dtree rule = myContext.getRule();
         try {
             rule.run(obj);
