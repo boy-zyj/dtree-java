@@ -534,7 +534,7 @@ public class Context<E> {
             ValueOf<OUTPUT> me;
             OTHER other;
 
-            public Ge(ValueOf<OUTPUT> me, OTHER other) {
+            Ge(ValueOf<OUTPUT> me, OTHER other) {
                 this.me = me;
                 this.other = other;
             }
@@ -560,7 +560,7 @@ public class Context<E> {
             ValueOf<OUTPUT> me;
             OTHER other;
 
-            public Gt(ValueOf<OUTPUT> me, OTHER other) {
+            Gt(ValueOf<OUTPUT> me, OTHER other) {
                 this.me = me;
                 this.other = other;
             }
@@ -586,7 +586,7 @@ public class Context<E> {
             ValueOf<OUTPUT> me;
             OTHER other;
 
-            public Le(ValueOf<OUTPUT> me, OTHER other) {
+            Le(ValueOf<OUTPUT> me, OTHER other) {
                 this.me = me;
                 this.other = other;
             }
@@ -612,7 +612,7 @@ public class Context<E> {
             ValueOf<OUTPUT> me;
             OTHER other;
 
-            public Lt(ValueOf<OUTPUT> me, OTHER other) {
+            Lt(ValueOf<OUTPUT> me, OTHER other) {
                 this.me = me;
                 this.other = other;
             }
@@ -638,7 +638,7 @@ public class Context<E> {
             ValueOf<OUTPUT> me;
             OTHER other;
 
-            public Eq(ValueOf<OUTPUT> me, OTHER other) {
+            Eq(ValueOf<OUTPUT> me, OTHER other) {
                 this.me = me;
                 this.other = other;
             }
