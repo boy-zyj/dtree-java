@@ -99,7 +99,9 @@ public class Context<E> {
          */
         public abstract boolean validate(E data);
 
-        boolean alwaysTrue = false;
+        public boolean isAlwaysTrue() {
+            return false;
+        }
 
     }
 
@@ -196,7 +198,10 @@ public class Context<E> {
 
     public class Else extends AbstractCondition {
 
-        boolean alwaysTrue = true;
+        @Override
+        public boolean isAlwaysTrue() {
+            return true;
+        }
 
         @Override
         public boolean validate(E data) {
@@ -309,7 +314,7 @@ public class Context<E> {
             if (tree.policy == null) {
                 tree.policy = policy;
             }
-            if (condition.alwaysTrue) {
+            if (condition.isAlwaysTrue()) {
                 this.eLse = tree;
             } else {
                 children.add(new Child(condition, tree));
@@ -317,7 +322,7 @@ public class Context<E> {
         }
 
         private void addChild(AbstractCondition condition, AbstractRunner runner) {
-            if (condition.alwaysTrue) {
+            if (condition.isAlwaysTrue()) {
                 this.eLse = runner;
             } else {
                 children.add(new Child(condition, runner));

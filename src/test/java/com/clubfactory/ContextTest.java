@@ -76,7 +76,6 @@ class MyContext<E extends Obj> extends Context<E> {
                         x(new Else(), toXs)
                 ))
         );
-
         Dtree rule = new Dtree(node);
         System.out.println(rule);
         return rule;
