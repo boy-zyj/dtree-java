@@ -447,8 +447,7 @@ public class Context<E> {
                         runner.run(data);
                         return;
                     }
-                } catch (NoMatchException e) {
-                    continue;
+                } catch (NoMatchException ignored) {
                 }
             }
             AbstractRunner eLse = tree.getElseRunner();
