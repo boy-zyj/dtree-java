@@ -5,7 +5,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 
 class Obj {
     String country;
@@ -29,7 +28,7 @@ class MyContext extends Context<Obj> {
 
     public static MyContext newInstance() {
         if (instance == null) {
-            return new MyContext();
+            instance = new MyContext();
         }
         return instance;
     }
