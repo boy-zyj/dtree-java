@@ -34,7 +34,7 @@ public class Context<E> {
 
     }
 
-    public abstract class AbstractRunner extends Descriptor {
+    abstract class AbstractRunner extends Descriptor {
 
         /**
          * 返回Runner的类型
