@@ -2,6 +2,7 @@ package com.clubfactory.dtree;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 
 /**
@@ -659,6 +660,32 @@ public class Context<E> {
 
         }
 
+        private class Test<OTHER extends Predicate<OUTPUT>> extends AbstractCondition {
+
+            ValueOf<OUTPUT> me;
+            OTHER other;
+
+            Test(ValueOf<OUTPUT> me, OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                OUTPUT meOutput = me.getOutput(input);
+                return other.test(meOutput);
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return "TEST";
+                }
+                return description;
+            }
+
+        }
+
         public <OTHER extends Comparable<OUTPUT>> AbstractCondition eq(OTHER other) {
             return new Eq<>(this, other);
         }
@@ -677,6 +704,10 @@ public class Context<E> {
 
         public <OTHER extends Comparable<OUTPUT>> AbstractCondition ge(OTHER other) {
             return new Ge<>(this, other);
+        }
+
+        public <OTHER extends Predicate<OUTPUT>> AbstractCondition test(OTHER other) {
+            return new Test<>(this, other);
         }
 
     }
