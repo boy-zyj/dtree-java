@@ -3,6 +3,7 @@ package com.clubfactory.dtree;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 
@@ -516,9 +517,9 @@ public class Context<E> {
     public class ValueOf<E_OUTPUT> {
 
         private String desc;
-        private Getter<E, E_OUTPUT> getter;
+        private Function<E, E_OUTPUT> getter;
 
-        public ValueOf(String desc, Getter<E, E_OUTPUT> getter) {
+        public ValueOf(String desc, Function<E, E_OUTPUT> getter) {
             this.desc = desc;
             this.getter = getter;
         }
@@ -528,7 +529,7 @@ public class Context<E> {
         }
 
         public E_OUTPUT getOutput(E input) {
-            return getter.get(input);
+            return getter.apply(input);
         }
 
         private class Ge<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
