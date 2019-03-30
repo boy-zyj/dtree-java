@@ -513,12 +513,12 @@ public class Context<E> {
         return new T(condition, runner);
     }
 
-    public class ValueOf<OUTPUT> {
+    public class ValueOf<E_OUTPUT> {
 
         private String desc;
-        private Getter<E, OUTPUT> getter;
+        private Getter<E, E_OUTPUT> getter;
 
-        public ValueOf(String desc, Getter<E, OUTPUT> getter) {
+        public ValueOf(String desc, Getter<E, E_OUTPUT> getter) {
             this.desc = desc;
             this.getter = getter;
         }
@@ -527,23 +527,23 @@ public class Context<E> {
             return desc;
         }
 
-        public OUTPUT getOutput(E input) {
+        public E_OUTPUT getOutput(E input) {
             return getter.get(input);
         }
 
-        private class Ge<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+        private class Ge<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            Ge(ValueOf<OUTPUT> me, OTHER other) {
+            Ge(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
                 return other.compareTo(meOutput) < 0;
             }
 
@@ -557,20 +557,20 @@ public class Context<E> {
 
         }
 
-        private class GeValueOf<OTHER extends ValueOf<Comparable<OUTPUT>>> extends AbstractCondition {
+        private class GeValueOf<E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            GeValueOf(ValueOf<OUTPUT> me, OTHER other) {
+            GeValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
-                Comparable<OUTPUT> otherOutput = other.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
                 return otherOutput.compareTo(meOutput) < 0;
             }
 
@@ -584,19 +584,19 @@ public class Context<E> {
 
         }
 
-        private class Gt<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+        private class Gt<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            Gt(ValueOf<OUTPUT> me, OTHER other) {
+            Gt(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
                 return other.compareTo(meOutput) <= 0;
             }
 
@@ -610,20 +610,20 @@ public class Context<E> {
 
         }
 
-        private class GtValueOf<OTHER extends ValueOf<Comparable<OUTPUT>>> extends AbstractCondition {
+        private class GtValueOf<E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            GtValueOf(ValueOf<OUTPUT> me, OTHER other) {
+            GtValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
-                Comparable<OUTPUT> otherOutput = other.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
                 return otherOutput.compareTo(meOutput) <= 0;
             }
 
@@ -637,19 +637,19 @@ public class Context<E> {
 
         }
 
-        private class Le<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+        private class Le<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            Le(ValueOf<OUTPUT> me, OTHER other) {
+            Le(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
                 return other.compareTo(meOutput) >= 0;
             }
 
@@ -663,20 +663,20 @@ public class Context<E> {
 
         }
 
-        private class LeValueOf<OTHER extends ValueOf<Comparable<OUTPUT>>> extends AbstractCondition {
+        private class LeValueOf<E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            LeValueOf(ValueOf<OUTPUT> me, OTHER other) {
+            LeValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
-                Comparable<OUTPUT> otherOutput = other.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
                 return otherOutput.compareTo(meOutput) >= 0;
             }
 
@@ -690,19 +690,19 @@ public class Context<E> {
 
         }
 
-        private class Lt<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+        private class Lt<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            Lt(ValueOf<OUTPUT> me, OTHER other) {
+            Lt(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
                 return other.compareTo(meOutput) > 0;
             }
 
@@ -716,20 +716,20 @@ public class Context<E> {
 
         }
 
-        private class LtValueOf<OTHER extends ValueOf<Comparable<OUTPUT>>> extends AbstractCondition {
+        private class LtValueOf<E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            LtValueOf(ValueOf<OUTPUT> me, OTHER other) {
+            LtValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
-                Comparable<OUTPUT> otherOutput = other.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
                 return otherOutput.compareTo(meOutput) > 0;
             }
 
@@ -743,19 +743,19 @@ public class Context<E> {
 
         }
 
-        private class Eq<OTHER extends Comparable<OUTPUT>> extends AbstractCondition {
+        private class Eq<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            Eq(ValueOf<OUTPUT> me, OTHER other) {
+            Eq(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
                 return other.compareTo(meOutput) == 0;
             }
 
@@ -769,20 +769,20 @@ public class Context<E> {
 
         }
 
-        private class EqValueOf<OTHER extends ValueOf<Comparable<OUTPUT>>> extends AbstractCondition {
+        private class EqValueOf<E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            EqValueOf(ValueOf<OUTPUT> me, OTHER other) {
+            EqValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
-                Comparable<OUTPUT> otherOutput = other.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
                 return otherOutput.compareTo(meOutput) == 0;
             }
 
@@ -796,19 +796,19 @@ public class Context<E> {
 
         }
 
-        private class Test<OTHER extends Predicate<OUTPUT>> extends AbstractCondition {
+        private class Test<E_OTHER extends Predicate<E_OUTPUT>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            Test(ValueOf<OUTPUT> me, OTHER other) {
+            Test(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
                 return other.test(meOutput);
             }
 
@@ -822,19 +822,19 @@ public class Context<E> {
 
         }
 
-        private class In<OTHER extends List<OUTPUT>> extends AbstractCondition {
+        private class In<E_OTHER extends List<E_OUTPUT>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            In(ValueOf<OUTPUT> me, OTHER other) {
+            In(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
                 return other.contains(meOutput);
             }
 
@@ -848,20 +848,20 @@ public class Context<E> {
 
         }
 
-        private class InValueOf<OTHER extends ValueOf<List<OUTPUT>>> extends AbstractCondition {
+        private class InValueOf<E_OTHER extends ValueOf<List<E_OUTPUT>>> extends AbstractCondition {
 
-            ValueOf<OUTPUT> me;
-            OTHER other;
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
 
-            InValueOf(ValueOf<OUTPUT> me, OTHER other) {
+            InValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
                 this.me = me;
                 this.other = other;
             }
 
             @Override
             public boolean validate(E input) {
-                OUTPUT meOutput = me.getOutput(input);
-                List<OUTPUT> otherOutput = other.getOutput(input);
+                E_OUTPUT meOutput = me.getOutput(input);
+                List<E_OUTPUT> otherOutput = other.getOutput(input);
                 return otherOutput.contains(meOutput);
             }
 
@@ -875,55 +875,55 @@ public class Context<E> {
 
         }
 
-        public <OTHER extends Comparable<OUTPUT>> AbstractCondition eq(OTHER other) {
+        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition eq(E_OTHER other) {
             return new Eq<>(this, other);
         }
 
-        public <OTHER extends ValueOf<Comparable<OUTPUT>>> AbstractCondition eq(OTHER other) {
+        public <E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> AbstractCondition eq(E_OTHER other) {
             return new EqValueOf<>(this, other);
         }
 
-        public <OTHER extends Comparable<OUTPUT>> AbstractCondition lt(OTHER other) {
+        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition lt(E_OTHER other) {
             return new Lt<>(this, other);
         }
 
-        public <OTHER extends ValueOf<Comparable<OUTPUT>>> AbstractCondition lt(OTHER other) {
+        public <E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> AbstractCondition lt(E_OTHER other) {
             return new LtValueOf<>(this, other);
         }
 
-        public <OTHER extends Comparable<OUTPUT>> AbstractCondition le(OTHER other) {
+        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition le(E_OTHER other) {
             return new Le<>(this, other);
         }
 
-        public <OTHER extends ValueOf<Comparable<OUTPUT>>> AbstractCondition le(OTHER other) {
+        public <E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> AbstractCondition le(E_OTHER other) {
             return new LeValueOf<>(this, other);
         }
 
-        public <OTHER extends Comparable<OUTPUT>> AbstractCondition gt(OTHER other) {
+        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition gt(E_OTHER other) {
             return new Gt<>(this, other);
         }
 
-        public <OTHER extends ValueOf<Comparable<OUTPUT>>> AbstractCondition gt(OTHER other) {
+        public <E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> AbstractCondition gt(E_OTHER other) {
             return new GtValueOf<>(this, other);
         }
 
-        public <OTHER extends Comparable<OUTPUT>> AbstractCondition ge(OTHER other) {
+        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition ge(E_OTHER other) {
             return new Ge<>(this, other);
         }
 
-        public <OTHER extends ValueOf<Comparable<OUTPUT>>> AbstractCondition ge(OTHER other) {
+        public <E_OTHER extends ValueOf<Comparable<E_OUTPUT>>> AbstractCondition ge(E_OTHER other) {
             return new GeValueOf<>(this, other);
         }
 
-        public <OTHER extends Predicate<OUTPUT>> AbstractCondition test(OTHER other) {
+        public <E_OTHER extends Predicate<E_OUTPUT>> AbstractCondition test(E_OTHER other) {
             return new Test<>(this, other);
         }
 
-        public <OTHER extends List<OUTPUT>> AbstractCondition in(OTHER other) {
+        public <E_OTHER extends List<E_OUTPUT>> AbstractCondition in(E_OTHER other) {
             return new In<>(this, other);
         }
 
-        public <OTHER extends ValueOf<List<OUTPUT>>> AbstractCondition in(OTHER other) {
+        public <E_OTHER extends ValueOf<List<E_OUTPUT>>> AbstractCondition in(E_OTHER other) {
             return new InValueOf<>(this, other);
         }
 
