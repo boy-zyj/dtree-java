@@ -796,20 +796,20 @@ public class Context<E> {
 
         }
 
-        private class Test<E_OTHER extends Predicate<E_OUTPUT>> extends AbstractCondition {
+        private class Test<E_PREDICATE extends Predicate<E_OUTPUT>> extends AbstractCondition {
 
             ValueOf<E_OUTPUT> me;
-            E_OTHER other;
+            E_PREDICATE predicate;
 
-            Test(ValueOf<E_OUTPUT> me, E_OTHER other) {
+            Test(ValueOf<E_OUTPUT> me, E_PREDICATE predicate) {
                 this.me = me;
-                this.other = other;
+                this.predicate = predicate;
             }
 
             @Override
             public boolean validate(E input) {
                 E_OUTPUT meOutput = me.getOutput(input);
-                return other.test(meOutput);
+                return predicate.test(meOutput);
             }
 
             @Override
@@ -915,8 +915,8 @@ public class Context<E> {
             return new GeValueOf<>(this, other);
         }
 
-        public <E_OTHER extends Predicate<E_OUTPUT>> AbstractCondition test(E_OTHER other) {
-            return new Test<>(this, other);
+        public <E_PREDICATE extends Predicate<E_OUTPUT>> AbstractCondition test(E_PREDICATE predicate) {
+            return new Test<>(this, predicate);
         }
 
         public <E_OTHER extends List<E_OUTPUT>> AbstractCondition in(E_OTHER other) {
