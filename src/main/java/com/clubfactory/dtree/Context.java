@@ -739,7 +739,7 @@ public class Context<E> {
             return new Test<>(this, predicate);
         }
 
-        public <E_PREDICATE extends Predicate<E_OUTPUT>> AbstractCondition test(E_PREDICATE predicate, String description) {
+        public <E_PREDICATE extends Predicate<E_OUTPUT>> AbstractCondition test(String description, E_PREDICATE predicate) {
             AbstractCondition condition = new Test<>(this, predicate);
             condition.setDescription(description);
             return condition;
