@@ -84,12 +84,12 @@ class MyContext extends Context<Obj> {
     Dtree getRule() {
         isCod.setDescription("isCod");
         Node node = node(
-                x(country.eq("india"), toXs),
-                x(and(isIndia, isValid), toHn),
-                x(isCod, toXs),
-                x(ELSE, node(
-                        x(isCod, toHn),
-                        x(ELSE, toXs)
+                iF(country.eq("india"), toXs),
+                iF(and(isIndia, isValid), toHn),
+                iF(isCod, toXs),
+                iF(ELSE, node(
+                        iF(isCod, toHn),
+                        iF(ELSE, toXs)
                 ))
         );
         Dtree rule = new Dtree(node);

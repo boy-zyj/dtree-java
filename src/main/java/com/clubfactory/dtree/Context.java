@@ -506,13 +506,14 @@ public class Context<E> {
         return new Node(ts);
     }
 
-    public T x(AbstractCondition condition, Node node) {
+    public T iF(AbstractCondition condition, Node node) {
         return new T(condition, node);
     }
 
-    public T x(AbstractCondition condition, AbstractRunner runner) {
+    public T iF(AbstractCondition condition, AbstractRunner runner) {
         return new T(condition, runner);
     }
+
 
     public class ValueOf<E_OUTPUT> {
 
