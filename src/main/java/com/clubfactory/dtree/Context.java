@@ -223,20 +223,20 @@ public class Context<E> {
         }
     }
 
-    public class T {
+    public class If {
 
         AbstractCondition condition;
         Node node;
         AbstractRunner runner;
         int rightType;
 
-        T(AbstractCondition condition, Node node) {
+        If(AbstractCondition condition, Node node) {
             this.condition = condition;
             this.node = node;
             rightType = NODE;
         }
 
-        T(AbstractCondition condition, AbstractRunner runner) {
+        If(AbstractCondition condition, AbstractRunner runner) {
             this.condition = condition;
             this.runner = runner;
             rightType = RUNNER;
@@ -245,22 +245,22 @@ public class Context<E> {
 
     public class Node {
 
-        private T[] ts;
+        private If[] iFs;
         private AbstractPolicy policy;
 
         @SafeVarargs
-        Node(T... ts) {
-            this.ts = ts;
+        Node(If... iFs) {
+            this.iFs = iFs;
         }
 
         @SafeVarargs
-        Node(AbstractPolicy policy, T... ts) {
-            this.ts = ts;
+        Node(AbstractPolicy policy, If... iFs) {
+            this.iFs = iFs;
             this.policy = policy;
         }
 
-        public T[] getTs() {
-            return ts;
+        public If[] getiFs() {
+            return iFs;
         }
 
         public AbstractPolicy getPolicy() {
@@ -302,17 +302,17 @@ public class Context<E> {
 
         public Dtree(Node node) {
             this.node = node;
-            T[] ts = node.ts;
+            If[] iFs = node.iFs;
             if (node.policy != null) {
                 policy = node.policy;
             }
-            children = new ArrayList<>(ts.length);
-            for (int i = 0; i < ts.length; i++) {
-                T t = ts[i];
-                if (t.rightType == NODE) {
-                    addChild(t.condition, t.node);
+            children = new ArrayList<>(iFs.length);
+            for (int i = 0; i < iFs.length; i++) {
+                If iF = iFs[i];
+                if (iF.rightType == NODE) {
+                    addChild(iF.condition, iF.node);
                 } else {
-                    addChild(t.condition, t.runner);
+                    addChild(iF.condition, iF.runner);
                 }
             }
         }
@@ -502,16 +502,16 @@ public class Context<E> {
     }
 
     @SuppressWarnings("unchecked")
-    public Node node(T... ts) {
-        return new Node(ts);
+    public Node node(If... iFs) {
+        return new Node(iFs);
     }
 
-    public T iF(AbstractCondition condition, Node node) {
-        return new T(condition, node);
+    public If iF(AbstractCondition condition, Node node) {
+        return new If(condition, node);
     }
 
-    public T iF(AbstractCondition condition, AbstractRunner runner) {
-        return new T(condition, runner);
+    public If iF(AbstractCondition condition, AbstractRunner runner) {
+        return new If(condition, runner);
     }
 
 
