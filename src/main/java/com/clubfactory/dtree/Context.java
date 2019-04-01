@@ -921,6 +921,12 @@ public class Context<E> {
             return new Test<>(this, predicate);
         }
 
+        public AbstractCondition test(String description, Predicate<E_OUTPUT> predicate) {
+            AbstractCondition condition = new Test<>(this, predicate);
+            condition.setDescription(description);
+            return condition;
+        }
+
         public AbstractCondition in(Collection<E_OUTPUT> other) {
             return new In<>(this, other);
         }
