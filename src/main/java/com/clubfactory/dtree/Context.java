@@ -524,6 +524,11 @@ public class Context<E> {
             this.consumer = consumer;
         }
 
+        public ConvertToAction(String description, Consumer<E> consumer) {
+            this(consumer);
+            this.description = description;
+        }
+
         @Override
         public void run(E data) {
             consumer.accept(data);
@@ -537,6 +542,11 @@ public class Context<E> {
 
         public ConvertToCondition(Function<E, Boolean> validator) {
             this.validator = validator;
+        }
+
+        public ConvertToCondition(String description, Function<E, Boolean> validator) {
+            this(validator);
+            this.description = description;
         }
 
         @Override
