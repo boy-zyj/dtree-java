@@ -86,7 +86,7 @@ class MyContext extends Context<Obj> {
     ValueOf<String> payType = new ValueOf<String>("payType", x -> x.payType);
     ValueOf<Integer> qty = new ValueOf<Integer>("qty", x -> x.qty);
     ValueOf<List<Integer>> integers = new ValueOf<List<Integer>>("integers", x -> x.integers);
-    AbstractCondition test = qty.in(integers);
+    AbstractCondition qtyInIntegers = qty.in(integers);
 
     AbstractCondition isCod = payType.eq("cod");
 
