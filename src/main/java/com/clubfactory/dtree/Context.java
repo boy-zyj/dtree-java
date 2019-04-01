@@ -1,6 +1,7 @@
 package com.clubfactory.dtree;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
@@ -824,7 +825,7 @@ public class Context<E> {
 
         }
 
-        private class In<E_OTHER extends List<E_OUTPUT>> extends AbstractCondition {
+        private class In<E_OTHER extends Collection<E_OUTPUT>> extends AbstractCondition {
 
             ValueOf<E_OUTPUT> me;
             E_OTHER other;
@@ -850,7 +851,7 @@ public class Context<E> {
 
         }
 
-        private class InValueOf<E_OTHER extends ValueOf<? extends List<E_OUTPUT>>> extends AbstractCondition {
+        private class InValueOf<E_OTHER extends ValueOf<? extends Collection<E_OUTPUT>>> extends AbstractCondition {
 
             ValueOf<E_OUTPUT> me;
             E_OTHER other;
@@ -863,7 +864,7 @@ public class Context<E> {
             @Override
             public boolean validate(E input) {
                 E_OUTPUT meOutput = me.getOutput(input);
-                List<E_OUTPUT> otherOutput = other.getOutput(input);
+                Collection<E_OUTPUT> otherOutput = other.getOutput(input);
                 return otherOutput.contains(meOutput);
             }
 
@@ -920,11 +921,11 @@ public class Context<E> {
             return new Test<>(this, predicate);
         }
 
-        public AbstractCondition in(List<E_OUTPUT> other) {
+        public AbstractCondition in(Collection<E_OUTPUT> other) {
             return new In<>(this, other);
         }
 
-        public AbstractCondition in(ValueOf<? extends List<E_OUTPUT>> other) {
+        public AbstractCondition in(ValueOf<? extends Collection<E_OUTPUT>> other) {
             return new InValueOf<>(this, other);
         }
 
