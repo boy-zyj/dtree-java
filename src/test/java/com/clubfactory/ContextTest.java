@@ -5,17 +5,23 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 class Obj {
     String country;
     String payType;
     boolean valid = true;
     int qty;
+    List<Integer> integers = new ArrayList<>();
 
     Obj(String country, String payType) {
         this.country = country;
         this.payType = payType;
         qty = 10;
+        integers.add(qty);
+        integers.add(20);
     }
 }
 
@@ -78,6 +84,9 @@ class MyContext extends Context<Obj> {
     ValueOf<String> country = new ValueOf<String>("country", x -> x.country);
     ValueOf<Boolean> valid = new ValueOf<Boolean>("valid", x -> x.valid);
     ValueOf<String> payType = new ValueOf<String>("payType", x -> x.payType);
+    ValueOf<Integer> qty = new ValueOf<Integer>("qty", x -> x.qty);
+    ValueOf<List<Integer>> integers = new ValueOf<List<Integer>>("integers", x -> x.integers);
+    AbstractCondition test = qty.in(integers);
 
     AbstractCondition isCod = payType.eq("cod");
 
