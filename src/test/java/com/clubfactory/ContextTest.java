@@ -103,6 +103,7 @@ class MyContext extends Context<Obj> {
         );
         Dtree rule = new Dtree(node);
         System.out.println(rule);
+        System.out.println("qty in integers: " + qtyInIntegers.validate(new Obj("India", "cod")));
         return rule;
     }
 
