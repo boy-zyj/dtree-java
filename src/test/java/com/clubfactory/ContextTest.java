@@ -90,6 +90,11 @@ class MyContext extends Context<Obj> {
 
     AbstractCondition isCod = payType.eq("cod");
 
+    public static void toSwitch(Obj data) {
+    }
+
+    AbstractAction addToSwitch = new ConvertToAction(MyContext::toSwitch);
+
     Dtree getRule() {
         isCod.setDescription("isCod");
         Node node = node(

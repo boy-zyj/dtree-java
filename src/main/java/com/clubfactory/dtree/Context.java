@@ -3,6 +3,7 @@ package com.clubfactory.dtree;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -514,6 +515,36 @@ public class Context<E> {
         return new If(condition, runner);
     }
 
+
+    public class ConvertToAction extends AbstractAction {
+
+        private Consumer<E> consumer;
+
+        public ConvertToAction(Consumer<E> consumer) {
+            this.consumer = consumer;
+        }
+
+        @Override
+        public void run(E data) {
+            consumer.accept(data);
+        }
+
+    }
+
+    public class ConvertToCondition extends AbstractCondition {
+
+        private Function<E, Boolean> validator;
+
+        public ConvertToCondition(Function<E, Boolean> validator) {
+            this.validator = validator;
+        }
+
+        @Override
+        public boolean validate(E data) {
+            return validator.apply(data);
+        }
+
+    }
 
     public class ValueOf<E_OUTPUT> {
 
