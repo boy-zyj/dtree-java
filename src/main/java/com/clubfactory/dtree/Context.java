@@ -3,7 +3,6 @@ package com.clubfactory.dtree;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
