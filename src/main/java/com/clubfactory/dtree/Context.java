@@ -559,6 +559,33 @@ public class Context<E> {
 
         }
 
+        private class GeValueOf<E_OTHER extends ValueOf<? extends Comparable<E_OUTPUT>>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            GeValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
+                return otherOutput.compareTo(meOutput) < 0;
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return desc + ">=" + other.getDesc();
+                }
+                return description;
+            }
+
+        }
+
         private class Gt<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
             ValueOf<E_OUTPUT> me;
@@ -579,6 +606,33 @@ public class Context<E> {
             public String getDescription() {
                 if (description == null) {
                     return desc + ">" + other;
+                }
+                return description;
+            }
+
+        }
+
+        private class GtValueOf<E_OTHER extends ValueOf<? extends Comparable<E_OUTPUT>>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            GtValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
+                return otherOutput.compareTo(meOutput) <= 0;
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return desc + ">" + other.getDesc();
                 }
                 return description;
             }
@@ -611,6 +665,33 @@ public class Context<E> {
 
         }
 
+        private class LeValueOf<E_OTHER extends ValueOf<? extends Comparable<E_OUTPUT>>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            LeValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
+                return otherOutput.compareTo(meOutput) >= 0;
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return desc + "<=" + other.getDesc();
+                }
+                return description;
+            }
+
+        }
+
         private class Lt<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
             ValueOf<E_OUTPUT> me;
@@ -637,6 +718,33 @@ public class Context<E> {
 
         }
 
+        private class LtValueOf<E_OTHER extends ValueOf<? extends Comparable<E_OUTPUT>>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            LtValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
+                return otherOutput.compareTo(meOutput) > 0;
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return desc + "<" + other.getDesc();
+                }
+                return description;
+            }
+
+        }
+
         private class Eq<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
 
             ValueOf<E_OUTPUT> me;
@@ -657,6 +765,33 @@ public class Context<E> {
             public String getDescription() {
                 if (description == null) {
                     return desc + "=" + other;
+                }
+                return description;
+            }
+
+        }
+
+        private class EqValueOf<E_OTHER extends ValueOf<? extends Comparable<E_OUTPUT>>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            EqValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
+                return otherOutput.compareTo(meOutput) == 0;
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return desc + "=" + other.getDesc();
                 }
                 return description;
             }
@@ -715,32 +850,82 @@ public class Context<E> {
 
         }
 
-        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition eq(E_OTHER other) {
+        private class InValueOf<E_OTHER extends ValueOf<? extends List<E_OUTPUT>>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            InValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                List<E_OUTPUT> otherOutput = other.getOutput(input);
+                return otherOutput.contains(meOutput);
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return "in " + other.getDesc();
+                }
+                return description;
+            }
+
+        }
+        public AbstractCondition eq(Comparable<E_OUTPUT> other) {
             return new Eq<>(this, other);
         }
 
-        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition lt(E_OTHER other) {
+        public AbstractCondition eq(ValueOf<? extends Comparable<E_OUTPUT>> other) {
+            return new EqValueOf<>(this, other);
+        }
+
+        public AbstractCondition lt(Comparable<E_OUTPUT> other) {
             return new Lt<>(this, other);
         }
 
-        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition le(E_OTHER other) {
+        public AbstractCondition lt(ValueOf<? extends Comparable<E_OUTPUT>> other) {
+            return new LtValueOf<>(this, other);
+        }
+
+        public AbstractCondition le(Comparable<E_OUTPUT> other) {
             return new Le<>(this, other);
         }
 
-        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition gt(E_OTHER other) {
+        public AbstractCondition le(ValueOf<? extends Comparable<E_OUTPUT>> other) {
+            return new LeValueOf<>(this, other);
+        }
+
+        public AbstractCondition gt(Comparable<E_OUTPUT> other) {
             return new Gt<>(this, other);
         }
 
-        public <E_OTHER extends Comparable<E_OUTPUT>> AbstractCondition ge(E_OTHER other) {
+        public AbstractCondition gt(ValueOf<? extends Comparable<E_OUTPUT>> other) {
+            return new GtValueOf<>(this, other);
+        }
+
+        public AbstractCondition ge(Comparable<E_OUTPUT> other) {
             return new Ge<>(this, other);
         }
 
-        public <E_PREDICATE extends Predicate<E_OUTPUT>> AbstractCondition test(E_PREDICATE predicate) {
+        public AbstractCondition ge(ValueOf<? extends Comparable<E_OUTPUT>> other) {
+            return new GeValueOf<>(this, other);
+        }
+
+        public AbstractCondition test(Predicate<E_OUTPUT> predicate) {
             return new Test<>(this, predicate);
         }
 
-        public <E_OTHER extends List<E_OUTPUT>> AbstractCondition in(E_OTHER other) {
+        public AbstractCondition in(List<E_OUTPUT> other) {
             return new In<>(this, other);
+        }
+
+        public AbstractCondition in(ValueOf<? extends List<E_OUTPUT>> other) {
+            return new InValueOf<>(this, other);
         }
 
     }
