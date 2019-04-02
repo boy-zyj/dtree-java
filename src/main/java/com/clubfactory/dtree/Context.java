@@ -839,6 +839,59 @@ public class Context<E> {
 
         }
 
+        private class Ne<E_OTHER extends Comparable<E_OUTPUT>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            Ne(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                return other.compareTo(meOutput) != 0;
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return desc + "!=" + other;
+                }
+                return description;
+            }
+
+        }
+
+        private class NeValueOf<E_OTHER extends ValueOf<? extends Comparable<E_OUTPUT>>> extends AbstractCondition {
+
+            ValueOf<E_OUTPUT> me;
+            E_OTHER other;
+
+            NeValueOf(ValueOf<E_OUTPUT> me, E_OTHER other) {
+                this.me = me;
+                this.other = other;
+            }
+
+            @Override
+            public boolean validate(E input) {
+                E_OUTPUT meOutput = me.getOutput(input);
+                Comparable<E_OUTPUT> otherOutput = other.getOutput(input);
+                return otherOutput.compareTo(meOutput) != 0;
+            }
+
+            @Override
+            public String getDescription() {
+                if (description == null) {
+                    return desc + "!=" + other.getDesc();
+                }
+                return description;
+            }
+
+        }
+
         private class Test<E_PREDICATE extends Predicate<E_OUTPUT>> extends AbstractCondition {
 
             ValueOf<E_OUTPUT> me;
@@ -923,6 +976,14 @@ public class Context<E> {
 
         public AbstractCondition eq(ValueOf<? extends Comparable<E_OUTPUT>> other) {
             return new EqValueOf<>(this, other);
+        }
+
+        public AbstractCondition ne(Comparable<E_OUTPUT> other) {
+            return new Ne<>(this, other);
+        }
+
+        public AbstractCondition ne(ValueOf<? extends Comparable<E_OUTPUT>> other) {
+            return new NeValueOf<>(this, other);
         }
 
         public AbstractCondition lt(Comparable<E_OUTPUT> other) {
