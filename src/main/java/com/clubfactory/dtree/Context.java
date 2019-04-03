@@ -1036,6 +1036,14 @@ public class Context<E> {
             return new InValueOf<>(this, other);
         }
 
+        public AbstractCondition isNull() {
+            return new ConvertToCondition(this.getDesc() + " is null", input -> getOutput(input) == null);
+        }
+
+        public AbstractCondition isNonNull() {
+            return new ConvertToCondition(this.getDesc() + " is not null", input -> getOutput(input) != null);
+        }
+
     }
 
 }
