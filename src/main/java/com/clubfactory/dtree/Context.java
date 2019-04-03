@@ -8,19 +8,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 
-class Null implements Comparable<Object> {
-
-    @Override
-    public int compareTo(Object obj) {
-        if (obj == null) {
-            return 0;
-        }
-        return -1;
-    }
-
-}
-
-
 /**
  * @author yao
  * @date 2019/03/19
@@ -500,7 +487,6 @@ public class Context<E> {
     public final AbstractPolicy REPEAT_POLICY = new RepeatPolicy();
 
     public final Else ELSE = new Else();
-    public final Null NULL = new Null();
 
     @SuppressWarnings("unchecked")
     public And and(AbstractCondition... conditions) {
