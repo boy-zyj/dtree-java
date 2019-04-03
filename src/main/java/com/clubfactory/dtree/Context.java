@@ -8,6 +8,19 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 
+class Null implements Comparable<Object> {
+
+    @Override
+    public int compareTo(Object obj) {
+        if (obj == null) {
+            return 0;
+        }
+        return -1;
+    }
+
+}
+
+
 /**
  * @author yao
  * @date 2019/03/19
@@ -482,11 +495,12 @@ public class Context<E> {
         }
     }
 
-    final public AbstractPolicy ONCE_POLICY = new OncePolicy();
-    final public AbstractPolicy DEFAULT_POLICY = ONCE_POLICY;
-    final public AbstractPolicy REPEAT_POLICY = new RepeatPolicy();
+    public final AbstractPolicy ONCE_POLICY = new OncePolicy();
+    public final AbstractPolicy DEFAULT_POLICY = ONCE_POLICY;
+    public final AbstractPolicy REPEAT_POLICY = new RepeatPolicy();
 
-    final public Else ELSE = new Else();
+    public final Else ELSE = new Else();
+    public final Null NULL = new Null();
 
     @SuppressWarnings("unchecked")
     public And and(AbstractCondition... conditions) {
