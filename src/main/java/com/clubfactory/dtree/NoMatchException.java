@@ -6,4 +6,4 @@ package com.clubfactory.dtree;
  * @author yao
  * @date 2019/03/19
  */
-public class NoMatchException extends Exception {}
+public class NoMatchException extends RuntimeException {}
