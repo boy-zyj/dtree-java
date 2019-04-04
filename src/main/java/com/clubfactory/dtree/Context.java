@@ -19,7 +19,8 @@ public class Context<E> {
     final private static int RUNNER = 1;
     final private static int ACTION = RUNNER;
     final private static int CHAIN = 2;
-    final private static int DTREE = 3;
+    final private static int CAPTURE = 3;
+    final private static int DTREE = 4;
 
     public class Descriptor {
 
@@ -57,6 +58,18 @@ public class Context<E> {
 
         public Chain then(AbstractRunner runner) {
             return new Chain(this, runner);
+        }
+
+        public Capture capture(AbstractRunner onRejectedRunner) {
+            return new Capture(this, onRejectedRunner);
+        }
+
+        public Capture capture(Consumer<RuntimeException> onRejectedErrorHandler) {
+            return new Capture(this, onRejectedErrorHandler);
+        }
+
+        public Capture capture(AbstractRunner onRejectedRunner, Consumer<RuntimeException> onRejectedErrorHandler) {
+            return new Capture(this, onRejectedRunner, onRejectedErrorHandler);
         }
 
     }
@@ -103,6 +116,69 @@ public class Context<E> {
             }
             return String.join("==>", descriptions);
         }
+    }
+
+
+    public class Capture extends AbstractRunner {
+
+        private AbstractRunner previous;
+        private AbstractRunner onRejectedRunner;
+        private Consumer<RuntimeException> onRejectedErrorHandler;
+
+        public Capture(AbstractRunner previous, AbstractRunner onRejectedRunner) {
+            this.previous = previous;
+            this.onRejectedRunner = onRejectedRunner;
+        }
+
+        public Capture(AbstractRunner previous, Consumer<RuntimeException> onRejectedErrorHandler) {
+            this.previous = previous;
+            this.onRejectedErrorHandler = onRejectedErrorHandler;
+        }
+
+        public Capture(AbstractRunner previous, AbstractRunner onRejectedRunner, Consumer<RuntimeException> onRejectedErrorHandler) {
+            this.previous = previous;
+            this.onRejectedRunner = onRejectedRunner;
+            this.onRejectedErrorHandler = onRejectedErrorHandler;
+        }
+
+        @Override
+        public String getDescription() {
+            if (description == null) {
+                String s = "CAPTURE";
+                if (onRejectedRunner != null) {
+                    s += "->" + onRejectedRunner.getDescription();
+                }
+                if (onRejectedErrorHandler == null) {
+                    s += "->" + "THROW";
+                } else {
+                    s += "->" + "HANDLE";
+                }
+                return s;
+            }
+            return description;
+        }
+
+        @Override
+        final public int getType() {
+            return CAPTURE;
+        }
+
+        @Override
+        public void run(E data) {
+            try {
+                previous.run(data);
+            } catch (RuntimeException ex) {
+                if (onRejectedRunner != null) {
+                    onRejectedRunner.run(data);
+                }
+                if (onRejectedErrorHandler == null) {
+                    throw ex;
+                } else {
+                    onRejectedErrorHandler.accept(ex);
+                }
+            }
+        }
+
     }
 
     public abstract class AbstractCondition extends Descriptor {
