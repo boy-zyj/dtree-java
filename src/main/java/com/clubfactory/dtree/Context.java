@@ -1047,30 +1047,6 @@ public class Context<E> {
 
         }
 
-        class Assert extends AbstractAction {
-
-            private AbstractCondition condition;
-
-            Assert(AbstractCondition condition) {
-                this.condition = condition;
-            }
-
-            @Override
-            public void run(E data) {
-                assert this.condition.validate(data);
-            }
-
-            @Override
-            public String getDescription() {
-                return  "assert " + condition.getDescription();
-            }
-
-        }
-
-        public AbstractAction asserT(AbstractCondition condition) {
-            return new Assert(condition);
-        }
-
         public AbstractCondition eq(Comparable<E_OUTPUT> other) {
             return new Eq<>(this, other);
         }
@@ -1145,6 +1121,30 @@ public class Context<E> {
             return new ConvertToCondition(this.getDesc() + " is not null", input -> getOutput(input) != null);
         }
 
+    }
+
+    class Assert extends AbstractAction {
+
+        private AbstractCondition condition;
+
+        Assert(AbstractCondition condition) {
+            this.condition = condition;
+        }
+
+        @Override
+        public void run(E data) {
+            assert this.condition.validate(data);
+        }
+
+        @Override
+        public String getDescription() {
+            return  "assert " + condition.getDescription();
+        }
+
+    }
+
+    public AbstractAction asserT(AbstractCondition condition) {
+        return new Assert(condition);
     }
 
 }
