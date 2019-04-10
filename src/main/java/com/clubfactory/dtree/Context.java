@@ -110,11 +110,14 @@ public class Context<E> {
 
         @Override
         public String getDescription() {
-            String[] descriptions = new String[runners.length];
-            for (int i = 0; i < runners.length; i++) {
-                descriptions[i] = runners[i].getDescription();
+            if (description == null) {
+                String[] descriptions = new String[runners.length];
+                for (int i = 0; i < runners.length; i++) {
+                    descriptions[i] = runners[i].getDescription();
+                }
+                description = String.join("==>", descriptions);
             }
-            return String.join("==>", descriptions);
+            return description;
         }
     }
 
