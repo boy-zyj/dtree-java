@@ -566,6 +566,7 @@ public class Context<E> {
     public final AbstractPolicy REPEAT_POLICY = new RepeatPolicy();
 
     public final Else ELSE = new Else();
+    public final AbstractAction PASS = new ConvertToAction("PASS", x -> {});
 
     @SuppressWarnings("unchecked")
     public And and(AbstractCondition... conditions) {
