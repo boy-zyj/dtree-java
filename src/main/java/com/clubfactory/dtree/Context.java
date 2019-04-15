@@ -65,11 +65,11 @@ public class Context<E> {
             return new Capture(this, onRejectedRunner);
         }
 
-        public Capture capture(Consumer<RuntimeException> onRejectedErrorHandler) {
+        public Capture capture(BiConsumer<E, RuntimeException> onRejectedErrorHandler) {
             return new Capture(this, onRejectedErrorHandler);
         }
 
-        public Capture capture(AbstractRunner onRejectedRunner, Consumer<RuntimeException> onRejectedErrorHandler) {
+        public Capture capture(AbstractRunner onRejectedRunner, BiConsumer<E, RuntimeException> onRejectedErrorHandler) {
             return new Capture(this, onRejectedRunner, onRejectedErrorHandler);
         }
 
