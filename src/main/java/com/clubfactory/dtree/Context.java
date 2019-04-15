@@ -3,6 +3,7 @@ package com.clubfactory.dtree;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -126,19 +127,19 @@ public class Context<E> {
 
         private AbstractRunner previous;
         private AbstractRunner onRejectedRunner;
-        private Consumer<RuntimeException> onRejectedErrorHandler;
+        private BiConsumer<E, RuntimeException> onRejectedErrorHandler;
 
         public Capture(AbstractRunner previous, AbstractRunner onRejectedRunner) {
             this.previous = previous;
             this.onRejectedRunner = onRejectedRunner;
         }
 
-        public Capture(AbstractRunner previous, Consumer<RuntimeException> onRejectedErrorHandler) {
+        public Capture(AbstractRunner previous, BiConsumer<E, RuntimeException> onRejectedErrorHandler) {
             this.previous = previous;
             this.onRejectedErrorHandler = onRejectedErrorHandler;
         }
 
-        public Capture(AbstractRunner previous, AbstractRunner onRejectedRunner, Consumer<RuntimeException> onRejectedErrorHandler) {
+        public Capture(AbstractRunner previous, AbstractRunner onRejectedRunner, BiConsumer<E, RuntimeException> onRejectedErrorHandler) {
             this.previous = previous;
             this.onRejectedRunner = onRejectedRunner;
             this.onRejectedErrorHandler = onRejectedErrorHandler;
@@ -177,7 +178,7 @@ public class Context<E> {
                 if (onRejectedErrorHandler == null) {
                     throw ex;
                 } else {
-                    onRejectedErrorHandler.accept(ex);
+                    onRejectedErrorHandler.accept(data, ex);
                 }
             }
         }
