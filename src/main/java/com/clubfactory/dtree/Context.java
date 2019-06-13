@@ -1138,7 +1138,9 @@ public class Context<E> {
 
         @Override
         public void run(E data) {
-            assert this.condition.validate(data);
+            if (!condition.validate(data)) {
+                throw new DtreeAssertionException(getDescription());
+            }
         }
 
         @Override
