@@ -61,6 +61,11 @@ public class Context<E> {
             return new Chain(this, runner);
         }
 
+        @SuppressWarnings("unchecked")
+        public Chain then(If... ifs) {
+            return new Chain(this, new Dtree(node(ifs)));
+        }
+
         public Capture capture(AbstractRunner onRejectedRunner) {
             return new Capture(this, onRejectedRunner);
         }
