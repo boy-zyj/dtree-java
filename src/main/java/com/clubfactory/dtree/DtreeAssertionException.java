@@ -14,4 +14,8 @@ public class DtreeAssertionException extends RuntimeException {
         super(s, cause);
     }
 
+    public DtreeAssertionException(Throwable cause) {
+        super(cause);
+    }
+
 }
