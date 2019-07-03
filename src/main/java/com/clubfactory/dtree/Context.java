@@ -23,23 +23,6 @@ public class Context<E> {
     final private static int CAPTURE = 3;
     final private static int DTREE = 4;
 
-    public class Descriptor {
-
-        protected String description;
-
-        public String getDescription() {
-            if (description == null) {
-                return getClass().getSimpleName();
-            }
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-    }
-
     public abstract class AbstractRunner extends Descriptor {
 
         /**
