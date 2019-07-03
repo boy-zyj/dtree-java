@@ -66,6 +66,11 @@ public class Context<E> {
             return new Chain(this, new Dtree(node(ifs)));
         }
 
+        @SuppressWarnings("unchecked")
+        public Chain then(Node node) {
+            return new Chain(this, new Dtree(node));
+        }
+
         public Capture capture(AbstractRunner onRejectedRunner) {
             return new Capture(this, onRejectedRunner);
         }
@@ -74,8 +79,16 @@ public class Context<E> {
             return new Capture(this, onRejectedErrorHandler);
         }
 
+        public Capture capture(Consumer<RuntimeException> onRejectedErrorHandler) {
+            return new Capture(this, (obj, e) -> onRejectedErrorHandler.accept(e));
+        }
+
         public Capture capture(AbstractRunner onRejectedRunner, BiConsumer<E, RuntimeException> onRejectedErrorHandler) {
             return new Capture(this, onRejectedRunner, onRejectedErrorHandler);
+        }
+
+        public Capture capture(AbstractRunner onRejectedRunner, Consumer<RuntimeException> onRejectedErrorHandler) {
+            return new Capture(this, onRejectedRunner, (obj, e) -> onRejectedErrorHandler.accept(e));
         }
 
     }
