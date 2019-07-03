@@ -448,7 +448,7 @@ public class Context<E> {
 
         public AbstractPolicy getPolicy() {
             if (policy == null) {
-                policy = DEFAULT_POLICY;
+                policy = defaultPolicy;
             }
             return policy;
         }
@@ -581,8 +581,8 @@ public class Context<E> {
     }
 
     public final AbstractPolicy ONCE_POLICY = new OncePolicy();
-    public final AbstractPolicy DEFAULT_POLICY = ONCE_POLICY;
     public final AbstractPolicy REPEAT_POLICY = new RepeatPolicy();
+    protected AbstractPolicy defaultPolicy = ONCE_POLICY;
 
     public final Else ELSE = new Else();
     public final AbstractAction PASS = new ConvertToAction("PASS", x -> {});
