@@ -117,36 +117,38 @@ public class DTree<T> extends AbstractRunner<T> {
 
     @Override
     public String toString() {
-        String s = "";
+        StringBuilder sb = new StringBuilder();
         String indent = "|      ";
         String dtreeMark = "+++";
         String actionMark = "---";
         int depth = getDepth();
         if (depth == 0) {
-            s += dtreeMark + "root:\n";
+            sb.append("root:\n");
         }
         List<ConditionAndRunner<T>> all = new ArrayList<>(children);
         if (elseRunner != null) {
-            all.add(new ConditionAndRunner<>((Else<T>) Else.ELSE, elseRunner));
+            all.add(new ConditionAndRunner<>(Else.getInstance(), elseRunner));
         }
         for (ConditionAndRunner<T> child: all) {
             Condition<T> condition = child.getCondition();
             Runner<T> runner = child.getRunner();
             if (runner instanceof DTree) {
-                DTree<T> tree = (DTree<T>) runner;
-                s += String.join("", Collections.nCopies(depth + 1, indent))
-                        + dtreeMark + condition.getDescription()
-                        + ":\n";
-                s += tree.toString();
+                DTree<T> dtree = (DTree<T>) runner;
+                sb.append(String.join("", Collections.nCopies(depth + 1, indent)));
+                sb.append(dtreeMark);
+                sb.append(condition.getDescription());
+                sb.append(":\n");
+                sb.append(dtree.toString());
             } else {
-                s += String.join("", Collections.nCopies(depth + 1, indent))
-                        + actionMark
-                        + condition.getDescription()
-                        + " --> "
-                        + runner.getDescription() + "\n";
+                sb.append(String.join("", Collections.nCopies(depth + 1, indent)));
+                sb.append(actionMark);
+                sb.append(condition.getDescription());
+                sb.append(" --> ");
+                sb.append(runner.getDescription());
+                sb.append("\n");
             }
         }
-        return s;
+        return sb.toString();
     }
 
 }

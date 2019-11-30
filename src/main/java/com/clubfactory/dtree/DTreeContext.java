@@ -3,11 +3,9 @@ package com.clubfactory.dtree;
 
 public class DTreeContext<T> {
 
-    @SuppressWarnings("unchecked")
-    final Else<T> ELSE = (Else<T>) Else.ELSE;
+    final Else<T> ELSE = Else.getInstance();
 
-    @SuppressWarnings("unchecked")
-    final Action<T> PASS = (Action<T>) Action.PASS;
+    final Action<T> PASS = Action.getInstance();
 
     @SuppressWarnings("unchecked")
     public Condition<T> and(Condition<T> ...conditions) {

@@ -7,4 +7,9 @@ public class Action<T> extends AbstractRunner<T> {
     @Override
     public void run(T target) throws NoMatchException {}
 
+    @SuppressWarnings("unchecked")
+    public static <T> Action<T> getInstance() {
+        return (Action<T>) PASS;
+    }
+
 }
