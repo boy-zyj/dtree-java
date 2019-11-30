@@ -1,5 +1,6 @@
 package com.clubfactory.dtree;
 
+import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -27,57 +28,68 @@ public class ValueGetter<IN, OUT> {
     }
 
     public Condition<IN> eq(Comparable<OUT> other) {
-        return toCondition(desc + "=" + other, in -> other.compareTo(getter.apply(in)) == 0);
+        return test(desc + "=" + other, in -> other.compareTo(getter.apply(in)) == 0);
     }
 
     public Condition<IN> eq(ValueGetter<IN, Comparable<OUT>> otherVallueGetter) {
-        return toCondition(
+        return test(
                 desc + "=" + otherVallueGetter.getDescription(),
                 in -> otherVallueGetter.getOutput(in).compareTo(getter.apply(in)) == 0
         );
     }
 
     public Condition<IN> lt(Comparable<OUT> other) {
-        return toCondition(desc + "<" + other, in -> other.compareTo(getter.apply(in)) > 0);
+        return test(desc + "<" + other, in -> other.compareTo(getter.apply(in)) > 0);
     }
 
     public Condition<IN> lt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return toCondition(
+        return test(
                 desc + "<" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) > 0
         );
     }
 
     public Condition<IN> le(Comparable<OUT> other) {
-        return toCondition(desc + "<=" + other, in -> other.compareTo(getter.apply(in)) >= 0);
+        return test(desc + "<=" + other, in -> other.compareTo(getter.apply(in)) >= 0);
     }
 
     public Condition<IN> le(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return toCondition(
+        return test(
                 desc + "<=" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) >= 0
         );
     }
 
     public Condition<IN> gt(Comparable<OUT> other) {
-        return toCondition(desc + ">" + other, in -> other.compareTo(getter.apply(in)) < 0);
+        return test(desc + ">" + other, in -> other.compareTo(getter.apply(in)) < 0);
     }
 
     public Condition<IN> gt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return toCondition(
+        return test(
                 desc + ">" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) < 0
         );
     }
 
     public Condition<IN> ge(Comparable<OUT> other) {
-        return toCondition(desc + ">=" + other, in -> other.compareTo(getter.apply(in)) <= 0);
+        return test(desc + ">=" + other, in -> other.compareTo(getter.apply(in)) <= 0);
     }
 
     public Condition<IN> ge(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return toCondition(
+        return test(
                 desc + ">=" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) <= 0
+        );
+    }
+
+    public Condition<IN> in(Collection<OUT> outs) {
+        return test(desc + " in " + outs, in -> outs.contains(getter.apply(in)));
+    }
+
+    public Condition<IN> in(ValueGetter<IN, Collection<OUT>> outsValueGetter) {
+        return test(
+                desc + " in " + outsValueGetter.getDescription(),
+                in -> outsValueGetter.getOutput(in).contains(getter.apply(in))
         );
     }
 
