@@ -85,4 +85,12 @@ public class ValueGetter<IN, OUT> {
         return toCondition(desc, predicate);
     }
 
+    public Condition<IN> isNull() {
+        return test(desc + " is null", in -> getter.apply(in) == null);
+    }
+
+    public Condition<IN> isNonNull() {
+        return test(desc + " is not null", in -> getter.apply(in) != null);
+    }
+
 }
