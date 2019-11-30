@@ -105,4 +105,48 @@ public class DTree<T> extends AbstractRunner<T> {
         getPolicy().run(this, target);
     }
 
+    public int getDepth() {
+        int depth = 0;
+        DTree<T> myParent = parent;
+        while (myParent != null) {
+            depth++;
+            myParent = myParent.parent;
+        }
+        return depth;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        String indent = "|      ";
+        String dtreeMark = "+++";
+        String actionMark = "---";
+        int depth = getDepth();
+        if (depth == 0) {
+            s += dtreeMark + "root:\n";
+        }
+        List<ConditionAndRunner<T>> all = new ArrayList<>(children);
+        if (elseRunner != null) {
+            all.add(new ConditionAndRunner<>((Else<T>) Else.ELSE, elseRunner));
+        }
+        for (ConditionAndRunner<T> child: all) {
+            Condition<T> condition = child.getCondition();
+            Runner<T> runner = child.getRunner();
+            if (runner instanceof DTree) {
+                DTree<T> tree = (DTree<T>) runner;
+                s += String.join("", Collections.nCopies(depth + 1, indent))
+                        + dtreeMark + condition.getDescription()
+                        + ":\n";
+                s += tree.toString();
+            } else {
+                s += String.join("", Collections.nCopies(depth + 1, indent))
+                        + actionMark
+                        + condition.getDescription()
+                        + " --> "
+                        + runner.getDescription() + "\n";
+            }
+        }
+        return s;
+    }
+
 }
