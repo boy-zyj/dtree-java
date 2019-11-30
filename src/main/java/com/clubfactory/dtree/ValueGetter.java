@@ -1,6 +1,7 @@
 package com.clubfactory.dtree;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -19,6 +20,11 @@ public class ValueGetter<IN, OUT> {
         return desc;
     }
 
+    public OUT getRequiredOutput(IN in) {
+        OUT out = getter.apply(in);
+        return Objects.requireNonNull(out, "Got null when getting value of " + desc);
+    }
+
     public OUT getOutput(IN in) {
         return getter.apply(in);
     }
@@ -34,7 +40,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> eq(ValueGetter<IN, Comparable<OUT>> otherVallueGetter) {
         return test(
                 desc + "=" + otherVallueGetter.getDescription(),
-                in -> otherVallueGetter.getOutput(in).compareTo(getter.apply(in)) == 0
+                in -> otherVallueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) == 0
         );
     }
 
@@ -45,7 +51,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> lt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return test(
                 desc + "<" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) > 0
+                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) > 0
         );
     }
 
@@ -56,7 +62,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> le(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return test(
                 desc + "<=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) >= 0
+                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) >= 0
         );
     }
 
@@ -67,7 +73,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> gt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return test(
                 desc + ">" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) < 0
+                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) < 0
         );
     }
 
@@ -78,7 +84,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> ge(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return test(
                 desc + ">=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getOutput(in).compareTo(getter.apply(in)) <= 0
+                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) <= 0
         );
     }
 
@@ -89,7 +95,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> in(ValueGetter<IN, Collection<OUT>> outsValueGetter) {
         return test(
                 desc + " in " + outsValueGetter.getDescription(),
-                in -> outsValueGetter.getOutput(in).contains(getter.apply(in))
+                in -> outsValueGetter.getRequiredOutput(in).contains(getter.apply(in))
         );
     }
 
