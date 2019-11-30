@@ -40,4 +40,13 @@ public class DTreeContext<T> {
         return new AssertAction<>(condition);
     }
 
+    public DTree<T> dtree(Node<T> node) {
+        return new DTree<>(node);
+    }
+
+    @SuppressWarnings("unchecked")
+    public DTree<T> dtree(If<T> ...ifs) {
+        return new DTree<>(ifs);
+    }
+
 }
