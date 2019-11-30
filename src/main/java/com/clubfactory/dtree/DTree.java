@@ -96,6 +96,10 @@ public class DTree<T> extends AbstractRunner<T> {
         return elseRunner;
     }
 
+    public Node<T> getNode() {
+        return node;
+    }
+
     @Override
     public void run(T target) throws NoMatchException {
         getPolicy().run(this, target);
