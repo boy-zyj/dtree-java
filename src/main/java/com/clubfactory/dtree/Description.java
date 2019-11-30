@@ -2,8 +2,12 @@ package com.clubfactory.dtree;
 
 public interface Description {
 
-    String getDescription();
+    default String getDescription() {
+        return getClass().getSimpleName();
+    }
 
-    void setDescription(String description);
+    default void setDescription(String description) {
+
+    }
 
 }
