@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+
 public class ValueGetter<IN, OUT> {
 
     private String desc;
