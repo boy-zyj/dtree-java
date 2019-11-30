@@ -30,86 +30,86 @@ public class ValueGetter<IN, OUT> {
         return getter.apply(in);
     }
 
-    protected Condition<IN> toCondition(String description, Predicate<IN> predicate) {
+    protected Condition<IN> toConditionImpl(String description, Predicate<IN> predicate) {
         return new ToCondition<>(description, predicate);
     }
 
     public Condition<IN> eq(Comparable<OUT> other) {
-        return test(desc + "=" + other, in -> other.compareTo(getter.apply(in)) == 0);
+        return toConditionImpl(desc + "=" + other, in -> other.compareTo(getter.apply(in)) == 0);
     }
 
     public Condition<IN> eq(ValueGetter<IN, Comparable<OUT>> otherVallueGetter) {
-        return test(
+        return toConditionImpl(
                 desc + "=" + otherVallueGetter.getDescription(),
                 in -> otherVallueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) == 0
         );
     }
 
     public Condition<IN> lt(Comparable<OUT> other) {
-        return test(desc + "<" + other, in -> other.compareTo(getter.apply(in)) > 0);
+        return toConditionImpl(desc + "<" + other, in -> other.compareTo(getter.apply(in)) > 0);
     }
 
     public Condition<IN> lt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return test(
+        return toConditionImpl(
                 desc + "<" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) > 0
         );
     }
 
     public Condition<IN> le(Comparable<OUT> other) {
-        return test(desc + "<=" + other, in -> other.compareTo(getter.apply(in)) >= 0);
+        return toConditionImpl(desc + "<=" + other, in -> other.compareTo(getter.apply(in)) >= 0);
     }
 
     public Condition<IN> le(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return test(
+        return toConditionImpl(
                 desc + "<=" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) >= 0
         );
     }
 
     public Condition<IN> gt(Comparable<OUT> other) {
-        return test(desc + ">" + other, in -> other.compareTo(getter.apply(in)) < 0);
+        return toConditionImpl(desc + ">" + other, in -> other.compareTo(getter.apply(in)) < 0);
     }
 
     public Condition<IN> gt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return test(
+        return toConditionImpl(
                 desc + ">" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) < 0
         );
     }
 
     public Condition<IN> ge(Comparable<OUT> other) {
-        return test(desc + ">=" + other, in -> other.compareTo(getter.apply(in)) <= 0);
+        return toConditionImpl(desc + ">=" + other, in -> other.compareTo(getter.apply(in)) <= 0);
     }
 
     public Condition<IN> ge(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
-        return test(
+        return toConditionImpl(
                 desc + ">=" + otherValueGetter.getDescription(),
                 in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) <= 0
         );
     }
 
     public Condition<IN> in(Collection<OUT> outs) {
-        return test(desc + " in " + outs, in -> outs.contains(getter.apply(in)));
+        return toConditionImpl(desc + " in " + outs, in -> outs.contains(getter.apply(in)));
     }
 
     public Condition<IN> in(ValueGetter<IN, Collection<OUT>> outsValueGetter) {
-        return test(
+        return toConditionImpl(
                 desc + " in " + outsValueGetter.getDescription(),
                 in -> outsValueGetter.getRequiredOutput(in).contains(getter.apply(in))
         );
     }
 
     public Condition<IN> test(String desc, Predicate<IN> predicate) {
-        return toCondition(desc, predicate);
+        return toConditionImpl(desc, predicate);
     }
 
     public Condition<IN> isNull() {
-        return test(desc + " is null", in -> getter.apply(in) == null);
+        return toConditionImpl(desc + " is null", in -> getter.apply(in) == null);
     }
 
     public Condition<IN> isNonNull() {
-        return test(desc + " is not null", in -> getter.apply(in) != null);
+        return toConditionImpl(desc + " is not null", in -> getter.apply(in) != null);
     }
 
 }
