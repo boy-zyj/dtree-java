@@ -133,12 +133,11 @@ public class DTree<T> extends AbstractRunner<T> {
             Condition<T> condition = child.getCondition();
             Runner<T> runner = child.getRunner();
             if (runner instanceof DTree) {
-                DTree<T> dtree = (DTree<T>) runner;
                 sb.append(String.join("", Collections.nCopies(depth + 1, indent)));
                 sb.append(dtreeMark);
                 sb.append(condition.getDescription());
                 sb.append(":\n");
-                sb.append(dtree.toString());
+                sb.append(runner.toString());
             } else {
                 sb.append(String.join("", Collections.nCopies(depth + 1, indent)));
                 sb.append(actionMark);
