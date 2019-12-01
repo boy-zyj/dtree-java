@@ -2,7 +2,7 @@ package com.clubfactory.dtree;
 
 public class Else<T> extends AbstractCondtion<T> {
 
-    public static Else<?> ELSE = new Else<>();
+    public static final Else<?> ELSE = new Else<>();
 
     @Override
     public final boolean validate(T target) {
