@@ -17,13 +17,13 @@ public class DTree<T> extends AbstractRunner<T> {
 
     public DTree(Node<T> node) {
         this.node = node;
-        If<T>[] iFs = node.iFs;
+        If<T>[] ifs = node.ifs;
         if (node.policy != null) {
             policy = node.policy;
         }
-        children = new ArrayList<>(iFs.length);
-        for (If<T> iF: iFs) {
-            add(iF);
+        children = new ArrayList<>(ifs.length);
+        for (If<T> fi: ifs) {
+            add(fi);
         }
         children = Collections.unmodifiableList(children);
     }
@@ -33,12 +33,12 @@ public class DTree<T> extends AbstractRunner<T> {
         this(new Node<>(ifs));
     }
 
-    private void add(If<T> iF) {
-        Condition<T> condition = Objects.requireNonNull(iF.condition);
-        if (iF.node == null) {
-            add(condition, Objects.requireNonNull(iF.runner));
+    private void add(If<T> fi) {
+        Condition<T> condition = Objects.requireNonNull(fi.condition);
+        if (fi.node == null) {
+            add(condition, Objects.requireNonNull(fi.runner));
         } else {
-            add(condition, iF.node);
+            add(condition, fi.node);
         }
     }
 
