@@ -3,8 +3,8 @@ package com.clubfactory.dtree;
 
 class ConditionAndRunner<T> {
 
-    Condition<T> condition;
-    Runner<T> runner;
+    private Condition<T> condition;
+    private Runner<T> runner;
 
     ConditionAndRunner(Condition<T> condition, Runner<T> runner) {
         this.condition = condition;
