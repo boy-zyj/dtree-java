@@ -1,6 +1,6 @@
 package com.clubfactory.dtree;
 
-public class RecursivePolicy<T> implements Policy<T> {
+class RecursivePolicy<T> implements Policy<T> {
 
     @Override
     public void run(DTree<T> dtree, T target) throws NoMatchException {
