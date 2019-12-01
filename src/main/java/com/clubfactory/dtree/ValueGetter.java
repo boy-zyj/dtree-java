@@ -17,6 +17,10 @@ public class ValueGetter<IN, OUT> {
         this.getter = getter;
     }
 
+    public ValueGetter(Function<IN, OUT> getter) {
+        this.getter = getter;
+    }
+
     public String getDescription() {
         return desc;
     }
