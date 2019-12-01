@@ -10,4 +10,14 @@ public interface Policy<T> {
 
     Policy<?> RECURSIVE_POLICY = new RecursivePolicy<>();
 
+    @SuppressWarnings("unchecked")
+    static <T> Policy<T> getOncePolicy() {
+        return (Policy<T>) ONCE_POLICY;
+    }
+
+    @SuppressWarnings("unchecked")
+    static <T> Policy<T> getRecursivePolicy() {
+        return (Policy<T>) RECURSIVE_POLICY;
+    }
+
 }

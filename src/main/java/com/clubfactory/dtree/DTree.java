@@ -64,15 +64,11 @@ public class DTree<T> extends AbstractRunner<T> {
     }
 
     public final Policy<T> getOncePolicy() {
-        @SuppressWarnings("unchecked")
-        Policy<T> policy = (Policy<T>) Policy.ONCE_POLICY;
-        return policy;
+        return Policy.getOncePolicy();
     }
 
     public final Policy<T> getRecursivePolicy() {
-        @SuppressWarnings("unchecked")
-        Policy<T> policy = (Policy<T>) Policy.RECURSIVE_POLICY;
-        return policy;
+        return Policy.getRecursivePolicy();
     }
 
     public Policy<T> getPolicy() {
