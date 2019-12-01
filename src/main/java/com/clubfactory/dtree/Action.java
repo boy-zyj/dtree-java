@@ -8,7 +8,7 @@ public class Action<T> extends AbstractRunner<T> {
     public void run(T target) throws NoMatchException {}
 
     @SuppressWarnings("unchecked")
-    public static <T> Action<T> getInstance() {
+    public static <T> Action<T> getPassInstance() {
         return (Action<T>) PASS;
     }
 

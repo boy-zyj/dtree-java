@@ -127,7 +127,7 @@ public class DTree<T> extends AbstractRunner<T> {
         }
         List<ConditionAndRunner<T>> all = new ArrayList<>(children);
         if (elseRunner != null) {
-            all.add(new ConditionAndRunner<>(Else.getInstance(), elseRunner));
+            all.add(new ConditionAndRunner<>(Else.getElseInstance(), elseRunner));
         }
         for (ConditionAndRunner<T> child: all) {
             Condition<T> condition = child.getCondition();

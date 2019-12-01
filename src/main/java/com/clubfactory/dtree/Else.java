@@ -15,7 +15,7 @@ public class Else<T> extends AbstractCondtion<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> Else<T> getInstance() {
+    public static <T> Else<T> getElseInstance() {
         return (Else<T>) ELSE;
     }
 
