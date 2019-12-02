@@ -7,7 +7,7 @@ public interface Description {
     }
 
     default void setDescription(String description) {
-
+        throw new UnsupportedOperationException("setDescription not supported");
     }
 
 }
