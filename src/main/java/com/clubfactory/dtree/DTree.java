@@ -43,7 +43,7 @@ public class DTree<T> extends AbstractRunner<T> {
     }
 
     private void add(Condition<T> condition, Node<T> node) {
-        DTree<T> dtree = new DTree<>(node);
+        DTree<T> dtree = newDTreeInstance(node);
         dtree.parent = this;
         conditionAndRunners.add(new ConditionAndRunner<>(condition, dtree));
     }
@@ -57,6 +57,10 @@ public class DTree<T> extends AbstractRunner<T> {
         } else {
             conditionAndRunners.add(new ConditionAndRunner<>(condition, runner));
         }
+    }
+
+    protected DTree<T> newDTreeInstance(Node<T> node) {
+        return new DTree<>(node);
     }
 
     protected Policy<T> getDefaultPolicy() {
