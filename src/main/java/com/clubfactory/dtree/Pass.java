@@ -5,7 +5,7 @@ public class Pass<T> extends Action<T> {
     public static final Action<?> PASS = new Pass<>();
 
     @Override
-    public final void run(T target) {}
+    public void run(T target) {}
 
     @SuppressWarnings("unchecked")
     public static <T> Action<T> getPassInstance() {
@@ -13,7 +13,7 @@ public class Pass<T> extends Action<T> {
     }
 
     @Override
-    public final String getDescription() {
+    public String getDescription() {
         return "PASS";
     }
 
