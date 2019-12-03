@@ -5,7 +5,7 @@ public class DTreeContext<T> {
 
     public final Else<T> ELSE = Else.getElseInstance();
 
-    public final Action<T> PASS = Action.getPassInstance();
+    public final Action<T> PASS = Pass.getPassInstance();
 
     @SuppressWarnings("unchecked")
     public Condition<T> and(Condition<T> ...conditions) {
