@@ -73,7 +73,7 @@ public class DTree<T> extends AbstractRunner<T> {
 
     public Policy<T> getPolicy() {
         DTree<T> parent = this;
-        Policy<T> policy = null;
+        Policy<T> policy;
         while (parent != null) {
             policy = parent.policy;
             if (policy != null) {
