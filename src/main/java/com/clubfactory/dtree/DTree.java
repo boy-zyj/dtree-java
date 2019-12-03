@@ -11,7 +11,7 @@ public class DTree<T> extends AbstractRunner<T> {
 
     private Node<T> node;
     private Policy<T> policy;
-    private List<ConditionAndRunner<T>> children;
+    private List<ConditionAndRunner<T>> conditionAndRunners;
     private DTree<T> parent;
     private Runner<T> elseRunner;
 
@@ -21,11 +21,11 @@ public class DTree<T> extends AbstractRunner<T> {
         if (node.policy != null) {
             policy = node.policy;
         }
-        children = new ArrayList<>(ifs.length);
+        conditionAndRunners = new ArrayList<>(ifs.length);
         for (If<T> fi: ifs) {
             add(fi);
         }
-        children = Collections.unmodifiableList(children);
+        conditionAndRunners = Collections.unmodifiableList(conditionAndRunners);
     }
 
     @SafeVarargs
@@ -45,7 +45,7 @@ public class DTree<T> extends AbstractRunner<T> {
     private void add(Condition<T> condition, Node<T> node) {
         DTree<T> dtree = new DTree<>(node);
         dtree.parent = this;
-        children.add(new ConditionAndRunner<>(condition, dtree));
+        conditionAndRunners.add(new ConditionAndRunner<>(condition, dtree));
     }
 
     private void add(Condition<T> condition, Runner<T> runner) {
@@ -55,7 +55,7 @@ public class DTree<T> extends AbstractRunner<T> {
             }
             elseRunner = runner;
         } else {
-            children.add(new ConditionAndRunner<>(condition, runner));
+            conditionAndRunners.add(new ConditionAndRunner<>(condition, runner));
         }
     }
 
@@ -84,8 +84,8 @@ public class DTree<T> extends AbstractRunner<T> {
         return getDefaultPolicy();
     }
 
-    public List<ConditionAndRunner<T>> getChildren() {
-        return children;
+    public List<ConditionAndRunner<T>> getConditionAndRunners() {
+        return conditionAndRunners;
     }
 
     public Runner<T> getElseRunner() {
@@ -121,7 +121,7 @@ public class DTree<T> extends AbstractRunner<T> {
         if (depth == 0) {
             sb.append("root:\n");
         }
-        List<ConditionAndRunner<T>> all = new ArrayList<>(children);
+        List<ConditionAndRunner<T>> all = new ArrayList<>(conditionAndRunners);
         if (elseRunner != null) {
             all.add(new ConditionAndRunner<>(Else.getElseInstance(), elseRunner));
         }
