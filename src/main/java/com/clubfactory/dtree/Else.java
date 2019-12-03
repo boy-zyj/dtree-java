@@ -5,12 +5,12 @@ public class Else<T> extends AbstractCondtion<T> {
     public static final Else<?> ELSE = new Else<>();
 
     @Override
-    public final boolean validate(T target) {
+    public boolean validate(T target) {
         return true;
     }
 
     @Override
-    public final String getDescription() {
+    public String getDescription() {
         return "ELSE";
     }
 
