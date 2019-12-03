@@ -16,7 +16,7 @@ public interface Policy<T> {
 
     Policy<?> RECURSIVE_POLICY = new RecursivePolicy<>();
 
-    Policy<?> QUIET_RECURSICE_POLICY = ((dtree, target) -> {
+    Policy<?> QUIET_RECURSIVE_POLICY = ((dtree, target) -> {
         try {
             getRecursivePolicy().run(dtree, target);
         } catch (NoMatchException ignore) {}
@@ -39,7 +39,7 @@ public interface Policy<T> {
 
     @SuppressWarnings("unchecked")
     static <T> Policy<T> getQuietRecursivePolicy() {
-        return (Policy<T>) QUIET_RECURSICE_POLICY;
+        return (Policy<T>) QUIET_RECURSIVE_POLICY;
     }
 
 }
