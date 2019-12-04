@@ -28,11 +28,6 @@ public class DTree<T> extends AbstractRunner<T> {
         conditionAndRunners = Collections.unmodifiableList(conditionAndRunners);
     }
 
-    @SafeVarargs
-    public DTree(If<T> ...ifs) {
-        this(new Node<>(ifs));
-    }
-
     private void add(If<T> fi) {
         Condition<T> condition = Objects.requireNonNull(fi.condition);
         if (fi.node == null) {
