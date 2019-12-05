@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 
-public class ToAction<T> extends AbstractRunner<T> {
+public class ToAction<T> extends Action<T> {
 
     private Consumer<T> consumer;
 
