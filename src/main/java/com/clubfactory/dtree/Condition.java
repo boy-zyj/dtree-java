@@ -13,8 +13,8 @@ public interface Condition<T> extends Description {
         return new Or<>(this, condition);
     }
 
-    default Condition<T> negate(Condition<T> condition) {
-        return new Not<>(condition);
+    default Condition<T> negate() {
+        return new Not<>(this);
     }
 
 }
