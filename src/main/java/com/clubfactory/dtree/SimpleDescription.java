@@ -7,7 +7,7 @@ public class SimpleDescription implements Description {
     @Override
     public String getDescription() {
         if (description == null) {
-            return getDefaultDescription();
+            description = getDefaultDescription();
         }
         return description;
     }
