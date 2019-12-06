@@ -38,10 +38,10 @@ public class ValueGetter<IN, OUT> {
         return toConditionImpl(desc + "=" + other, in -> other.compareTo(getter.apply(in)) == 0);
     }
 
-    public Condition<IN> eq(ValueGetter<IN, Comparable<OUT>> otherVallueGetter) {
+    public Condition<IN> eq(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return toConditionImpl(
-                desc + "=" + otherVallueGetter.getDescription(),
-                in -> otherVallueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) == 0
+                desc + "=" + otherValueGetter.getDescription(),
+                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) == 0
         );
     }
 
