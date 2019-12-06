@@ -59,15 +59,7 @@ public class DTree<T> extends AbstractRunner<T> {
     }
 
     protected Policy<T> getDefaultPolicy() {
-        return getOncePolicy();
-    }
-
-    public final Policy<T> getOncePolicy() {
         return Policy.getOncePolicy();
-    }
-
-    public final Policy<T> getRecursivePolicy() {
-        return Policy.getRecursivePolicy();
     }
 
     public Policy<T> getPolicy() {
