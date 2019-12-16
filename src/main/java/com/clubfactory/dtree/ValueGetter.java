@@ -21,12 +21,12 @@ public class ValueGetter<IN, OUT> {
         return desc;
     }
 
-    public OUT getRequiredOutput(IN in) {
+    public OUT getRequiredValue(IN in) {
         OUT out = getter.apply(in);
         return Objects.requireNonNull(out, "Got null when getting value of " + desc);
     }
 
-    public OUT getOutput(IN in) {
+    public OUT getValue(IN in) {
         return getter.apply(in);
     }
 
@@ -41,7 +41,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> eq(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return toCondition(
                 desc + "=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) == 0
+                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) == 0
         );
     }
 
@@ -52,7 +52,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> lt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return toCondition(
                 desc + "<" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) > 0
+                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) > 0
         );
     }
 
@@ -63,7 +63,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> le(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return toCondition(
                 desc + "<=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) >= 0
+                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) >= 0
         );
     }
 
@@ -74,7 +74,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> gt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return toCondition(
                 desc + ">" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) < 0
+                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) < 0
         );
     }
 
@@ -85,7 +85,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> ge(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
         return toCondition(
                 desc + ">=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredOutput(in).compareTo(getter.apply(in)) <= 0
+                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) <= 0
         );
     }
 
@@ -96,7 +96,7 @@ public class ValueGetter<IN, OUT> {
     public Condition<IN> in(ValueGetter<IN, Collection<OUT>> outsValueGetter) {
         return toCondition(
                 desc + " in " + outsValueGetter.getDescription(),
-                in -> outsValueGetter.getRequiredOutput(in).contains(getter.apply(in))
+                in -> outsValueGetter.getRequiredValue(in).contains(getter.apply(in))
         );
     }
 
