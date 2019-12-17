@@ -116,10 +116,10 @@ public class DTree<T> extends AbstractRunner<T> {
         if (elseRunner != null) {
             all.add(new ConditionAndRunner<>(Else.getElseInstance(), elseRunner));
         }
-        for (ConditionAndRunner<T> child: all) {
-            Condition<T> condition = child.getCondition();
-            Runner<T> runner = child.getRunner();
-            if (runner instanceof DTree) {
+        for (ConditionAndRunner<T> conditionAndRunner: all) {
+            Condition<T> condition = conditionAndRunner.getCondition();
+            Runner<T> runner = conditionAndRunner.getRunner();
+            if (runner instanceof DTree && ((DTree) runner).parent == this) {
                 sb.append(String.join("", Collections.nCopies(depth + 1, indent)));
                 sb.append(dtreeMark);
                 sb.append(condition.getDescription());

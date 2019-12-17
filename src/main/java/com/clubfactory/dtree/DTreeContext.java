@@ -26,15 +26,15 @@ public class DTreeContext<T> {
         return new Node<>(ifs);
     }
 
-    public If<T> fi(Condition<T> condition, Runner<T> runner) {
+    public If<T> ifThat(Condition<T> condition, Runner<T> runner) {
         return new If<>(condition, runner);
     }
 
-    public If<T> fi(Condition<T> condition, Node<T> node) {
+    public If<T> ifThat(Condition<T> condition, Node<T> node) {
         return new If<>(condition, node);
     }
 
-    public Runner<T> asserT(Condition<T> condition) {
+    public Runner<T> assertThat(Condition<T> condition) {
         return new AssertAction<>(condition);
     }
 
