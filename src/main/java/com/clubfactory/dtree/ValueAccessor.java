@@ -6,13 +6,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 
-public class ValueGetter<IN, OUT> {
+public class ValueAccessor<IN, OUT> {
 
     private String desc;
 
     private Function<IN, OUT> getter;
 
-    public ValueGetter(String desc, Function<IN, OUT> getter) {
+    public ValueAccessor(String desc, Function<IN, OUT> getter) {
         this.desc = desc;
         this.getter = getter;
     }
@@ -38,10 +38,10 @@ public class ValueGetter<IN, OUT> {
         return toCondition(desc + "=" + other, in -> other.compareTo(getter.apply(in)) == 0);
     }
 
-    public Condition<IN> eq(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
+    public Condition<IN> eq(ValueAccessor<IN, Comparable<OUT>> otherValueAccessor) {
         return toCondition(
-                desc + "=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) == 0
+                desc + "=" + otherValueAccessor.getDescription(),
+                in -> otherValueAccessor.getRequiredValue(in).compareTo(getter.apply(in)) == 0
         );
     }
 
@@ -49,10 +49,10 @@ public class ValueGetter<IN, OUT> {
         return toCondition(desc + "<" + other, in -> other.compareTo(getter.apply(in)) > 0);
     }
 
-    public Condition<IN> lt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
+    public Condition<IN> lt(ValueAccessor<IN, Comparable<OUT>> otherValueAccessor) {
         return toCondition(
-                desc + "<" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) > 0
+                desc + "<" + otherValueAccessor.getDescription(),
+                in -> otherValueAccessor.getRequiredValue(in).compareTo(getter.apply(in)) > 0
         );
     }
 
@@ -60,10 +60,10 @@ public class ValueGetter<IN, OUT> {
         return toCondition(desc + "<=" + other, in -> other.compareTo(getter.apply(in)) >= 0);
     }
 
-    public Condition<IN> le(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
+    public Condition<IN> le(ValueAccessor<IN, Comparable<OUT>> otherValueAccessor) {
         return toCondition(
-                desc + "<=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) >= 0
+                desc + "<=" + otherValueAccessor.getDescription(),
+                in -> otherValueAccessor.getRequiredValue(in).compareTo(getter.apply(in)) >= 0
         );
     }
 
@@ -71,10 +71,10 @@ public class ValueGetter<IN, OUT> {
         return toCondition(desc + ">" + other, in -> other.compareTo(getter.apply(in)) < 0);
     }
 
-    public Condition<IN> gt(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
+    public Condition<IN> gt(ValueAccessor<IN, Comparable<OUT>> otherValueAccessor) {
         return toCondition(
-                desc + ">" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) < 0
+                desc + ">" + otherValueAccessor.getDescription(),
+                in -> otherValueAccessor.getRequiredValue(in).compareTo(getter.apply(in)) < 0
         );
     }
 
@@ -82,10 +82,10 @@ public class ValueGetter<IN, OUT> {
         return toCondition(desc + ">=" + other, in -> other.compareTo(getter.apply(in)) <= 0);
     }
 
-    public Condition<IN> ge(ValueGetter<IN, Comparable<OUT>> otherValueGetter) {
+    public Condition<IN> ge(ValueAccessor<IN, Comparable<OUT>> otherValueAccessor) {
         return toCondition(
-                desc + ">=" + otherValueGetter.getDescription(),
-                in -> otherValueGetter.getRequiredValue(in).compareTo(getter.apply(in)) <= 0
+                desc + ">=" + otherValueAccessor.getDescription(),
+                in -> otherValueAccessor.getRequiredValue(in).compareTo(getter.apply(in)) <= 0
         );
     }
 
@@ -93,10 +93,10 @@ public class ValueGetter<IN, OUT> {
         return toCondition(desc + " in " + outs, in -> outs.contains(getter.apply(in)));
     }
 
-    public Condition<IN> in(ValueGetter<IN, Collection<OUT>> outsValueGetter) {
+    public Condition<IN> in(ValueAccessor<IN, Collection<OUT>> outsValueAccessor) {
         return toCondition(
-                desc + " in " + outsValueGetter.getDescription(),
-                in -> outsValueGetter.getRequiredValue(in).contains(getter.apply(in))
+                desc + " in " + outsValueAccessor.getDescription(),
+                in -> outsValueAccessor.getRequiredValue(in).contains(getter.apply(in))
         );
     }
 
