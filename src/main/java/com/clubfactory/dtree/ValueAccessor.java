@@ -100,7 +100,7 @@ public class ValueAccessor<IN, OUT> {
         );
     }
 
-    public Condition<IN> test(String desc, Predicate<IN> predicate) {
+    public Condition<IN> predicate(String desc, Predicate<IN> predicate) {
         return toCondition(desc, predicate);
     }
 
