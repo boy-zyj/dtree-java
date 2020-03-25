@@ -6,12 +6,12 @@ public class Node<T> {
     Policy<T> policy;
 
     @SafeVarargs
-    Node(If<T> ... ifs) {
+    public Node(If<T> ... ifs) {
         this.ifs = ifs;
     }
 
     @SafeVarargs
-    Node(Policy<T> policy, If<T> ... ifs) {
+    public Node(Policy<T> policy, If<T> ... ifs) {
         this.ifs = ifs;
         this.policy = policy;
     }
