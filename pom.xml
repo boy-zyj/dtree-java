@@ -10,7 +10,7 @@
   <groupId>com.clubfactory</groupId>
   <artifactId>dtree</artifactId>
   <packaging>jar</packaging>
-  <version>2.0.5.RELEASE</version>
+  <version>2.0.6.RELEASE</version>
   <name>dtree</name>
   <url>http://maven.apache.org</url>
   <dependencies>
