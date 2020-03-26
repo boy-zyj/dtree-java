@@ -26,11 +26,11 @@ public class DTreeContext<T> {
         return new Node<>(ifs);
     }
 
-    public If<T> ifThat(Condition<T> condition, Runner<T> runner) {
+    public If<T> jf(Condition<T> condition, Runner<T> runner) {
         return new If<>(condition, runner);
     }
 
-    public If<T> ifThat(Condition<T> condition, Node<T> node) {
+    public If<T> jf(Condition<T> condition, Node<T> node) {
         return new If<>(condition, node);
     }
 
