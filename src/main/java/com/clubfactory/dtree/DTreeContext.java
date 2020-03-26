@@ -42,4 +42,9 @@ public class DTreeContext<T> {
         return new DTree<>(node);
     }
 
+    @SuppressWarnings("unchecked")
+    protected DTree<T> dtree(If<T> ...ifs) {
+        return new DTree<>(node(ifs));
+    }
+
 }
