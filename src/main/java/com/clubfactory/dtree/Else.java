@@ -5,7 +5,7 @@ public class Else<T> extends AbstractCondtion<T> {
     public static final Else<?> ELSE = new Else<>();
 
     @Override
-    public boolean validate(T target) {
+    public final boolean validate(T target) {
         return true;
     }
 
