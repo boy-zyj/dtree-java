@@ -14,7 +14,7 @@ public class ValueAccessor<IN, OUT> {
 
     public ValueAccessor(String desc, Function<IN, OUT> getter) {
         this.desc = desc;
-        this.getter = getter;
+        this.getter = Objects.requireNonNull(getter, "getter must not be null");
     }
 
     public String getDescription() {
@@ -100,8 +100,8 @@ public class ValueAccessor<IN, OUT> {
         );
     }
 
-    public Condition<IN> predicate(String desc, Predicate<IN> predicate) {
-        return toCondition(desc, predicate);
+    public Condition<IN> predicate(String desc, Predicate<OUT> predicate) {
+        return toCondition(desc, in -> predicate.test(getValue(in)));
     }
 
     public Condition<IN> isNull() {
@@ -110,6 +110,14 @@ public class ValueAccessor<IN, OUT> {
 
     public Condition<IN> isNonNull() {
         return toCondition(desc + " is not null", in -> getter.apply(in) != null);
+    }
+
+    public <NEW_OUT> ValueAccessor<IN, NEW_OUT> andThen(String desc, Function<OUT, NEW_OUT> getter) {
+        return new ValueAccessor<>(desc, this.getter.andThen(getter));
+    }
+
+    public <NEW_IN> ValueAccessor<NEW_IN, OUT> compose(String desc, Function<NEW_IN, IN> getter) {
+        return new ValueAccessor<>(desc, this.getter.compose(getter));
     }
 
 }

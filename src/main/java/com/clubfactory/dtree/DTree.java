@@ -75,6 +75,10 @@ public class DTree<T> extends AbstractRunner<T> {
         return getDefaultPolicy();
     }
 
+    public void setPolicy(Policy<T> policy) {
+        this.policy = policy;
+    }
+
     public List<ConditionAndRunner<T>> getConditionAndRunners() {
         return conditionAndRunners;
     }
